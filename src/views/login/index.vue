@@ -77,15 +77,16 @@ export default {
         account: '',
         pwd: ''
       },
+      isVerification: false,
       loginForm: {
         username: '哈士奇',
         password: '123456'
       },
-      loginRules: {
-        username: [
+      rules: {
+        account: [
           { required: true, message: '用户名不能为空', trigger: 'blur' }
         ],
-        password: [
+        pwd: [
           { required: true, message: '密码不能为空', trigger: 'blur' }
         ]
       },

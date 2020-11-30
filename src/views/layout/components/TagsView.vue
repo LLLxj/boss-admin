@@ -31,6 +31,7 @@ export default {
   },
   computed: {
     visitedViews () {
+      console.log(this.$store.state.tagsView.visitedViews)
       return this.$store.state.tagsView.visitedViews
     }
   },

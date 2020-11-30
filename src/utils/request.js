@@ -7,9 +7,7 @@ import router from '@/router'
 
 // 创建axios实例
 const service = axios.create({
-  // baseURL: 'http://localhost:5000',
-  // baseURL: '112.74.162.61:5000',
-  baseURL: process.env.BASE_API, // api的base_url
+  baseURL: process.env.VUE_APP_HOST, // api的base_url
   // baseURL: '127.0.0.1',
   timeout: 15000 // 请求超时时间
 })
