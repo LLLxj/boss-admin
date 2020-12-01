@@ -9,7 +9,8 @@ export default [
     name: 'bodyCheck',
     component: Layout,
     meta: {
-      title: '体检查查'
+      title: '体检查查',
+      icon: 'table'
     },
     children: [
       ...checkProject,

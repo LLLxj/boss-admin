@@ -28,12 +28,12 @@ module.exports = {
     open: true,
     hotOnly: false,
     proxy: {
-      '/test': {
-        target: 'http://192.168.5.232:10080',
+      '/apiPro': {
+        target: process.env.VUE_APP_HOST,
         ws: true,
         changOrigin: true,
         pathRewrite: {
-          '^/': '/'
+          '^/apiPro': ''
         }
       }
     }

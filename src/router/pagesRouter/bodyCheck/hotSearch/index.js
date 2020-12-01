@@ -6,7 +6,8 @@ export default [
       require(['@/views/bodyCheck/hotSearch'], resolve)
     },
     meta: {
-      title: '测评管理'
+      title: '测评管理',
+      icon: 'table'
     }
   }
 ]

@@ -6,7 +6,8 @@ export default [
       require(['@/views/tags/tagManagement'], resolve)
     },
     meta: {
-      title: '标签管理'
+      title: '标签管理',
+      icon: 'table'
     }
   }
 ]

@@ -6,7 +6,8 @@ export default [
       require(['@/views/cms/cmsContent'], resolve)
     },
     meta: {
-      title: '内容管理'
+      title: '内容管理',
+      icon: 'table'
     }
   }
 ]

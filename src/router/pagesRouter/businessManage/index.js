@@ -9,7 +9,8 @@ export default [
     name: 'businessManage',
     component: Layout,
     meta: {
-      title: '商户管理'
+      title: '商户管理',
+      icon: 'table'
     },
     children: [
       ...businessManageList,

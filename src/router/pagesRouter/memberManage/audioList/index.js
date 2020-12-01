@@ -6,7 +6,8 @@ export default [
       require(['@/views/memberManage/audioList'], resolve)
     },
     meta: {
-      title: '音频列表'
+      title: '音频列表',
+      icon: 'table'
     }
   }
 ]

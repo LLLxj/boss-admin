@@ -6,7 +6,8 @@ export default [
       require(['@/views/autodiagnostic/projectManage'], resolve)
     },
     meta: {
-      title: '自诊项目管理'
+      title: '自诊项目管理',
+      icon: 'table'
     }
   }
 ]

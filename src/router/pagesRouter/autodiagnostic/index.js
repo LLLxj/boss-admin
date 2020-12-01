@@ -8,7 +8,8 @@ export default [
     name: 'autodiagnostic',
     component: Layout,
     meta: {
-      title: '自诊系统'
+      title: '自诊系统',
+      icon: 'table'
     },
     children: [
       ...autognosisPM,

@@ -6,7 +6,8 @@ export default [
       require(['@/views/statistics/premiumCount'], resolve)
     },
     meta: {
-      title: '保费统计'
+      title: '保费统计',
+      icon: 'table'
     }
   }
 ]

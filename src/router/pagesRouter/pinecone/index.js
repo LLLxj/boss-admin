@@ -8,7 +8,8 @@ export default [
     name: 'pinecone',
     component: Layout,
     meta: {
-      title: '松果医服后台'
+      title: '松果医服后台',
+      icon: 'table'
     },
     children: [
       ...contentManage,

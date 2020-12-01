@@ -6,7 +6,8 @@ export default [
       require(['@/views/pinecone/contentManage'], resolve)
     },
     meta: {
-      title: '内容管理'
+      title: '内容管理',
+      icon: 'table'
     }
   }
 ]

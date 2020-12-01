@@ -6,7 +6,8 @@ export default [
       require(['@/views/memberManage/channelService'], resolve)
     },
     meta: {
-      title: '渠道服务管理'
+      title: '渠道服务管理',
+      icon: 'table'
     }
   }
 ]

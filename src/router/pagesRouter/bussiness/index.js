@@ -9,12 +9,13 @@ export default [
     redirect: 'noredirect', // 当设置 noredirect 的时候该路由在面包屑导航中不可被点击
     name: 'bussiness',
     meta: {
-      title: '业务管理'
+      title: '业务管理',
+      icon: 'table'
     },
     children: [
-      ...evaluationQuery, // 测评管理
+      ...ocrConfirm, // OCR确认
       ...manualEvaluation, // 人工测评
-      ...ocrConfirm // OCR确认
+      ...evaluationQuery // 测评管理
     ]
   }
 ]

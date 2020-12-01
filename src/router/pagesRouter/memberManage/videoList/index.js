@@ -6,7 +6,8 @@ export default [
       require(['@/views/memberManage/videoList'], resolve)
     },
     meta: {
-      title: '视频列表'
+      title: '视频列表',
+      icon: 'table'
     }
   }
 ]

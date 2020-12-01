@@ -13,7 +13,8 @@ export default [
     name: 'member-businessManage',
     component: Layout,
     meta: {
-      title: '会员服务管理'
+      title: '会员服务管理',
+      icon: 'table'
     },
     children: [
       ...audioClassify,

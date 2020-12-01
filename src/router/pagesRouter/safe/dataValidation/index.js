@@ -6,7 +6,8 @@ export default [
       require(['@/views/safe/dataValidation'], resolve)
     },
     meta: {
-      title: '数据验证'
+      title: '数据验证',
+      icon: 'table'
     }
   }
 ]

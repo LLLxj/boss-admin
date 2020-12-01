@@ -6,7 +6,8 @@ export default [
       require(['@/views/bussiness/manualEvaluation'], resolve)
     },
     meta: {
-      title: '人工测评'
+      title: '人工测评',
+      icon: 'table'
     }
   }
 ]

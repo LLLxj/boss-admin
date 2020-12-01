@@ -6,7 +6,8 @@ export default [
       require(['@/views/businessManage/businessManagement'], resolve)
     },
     meta: {
-      title: '商户管理'
+      title: '商户管理',
+      icon: 'table'
     }
   }
 ]

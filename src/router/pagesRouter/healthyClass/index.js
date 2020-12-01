@@ -8,7 +8,8 @@ export default [
     name: 'healthyClass',
     component: Layout,
     meta: {
-      title: '健康星球'
+      title: '健康星球',
+      icon: 'table'
     },
     children: [
       ...categoryManage,

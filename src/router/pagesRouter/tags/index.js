@@ -10,7 +10,8 @@ export default [
     name: 'tags',
     component: Layout,
     meta: {
-      title: '打标系统'
+      title: '打标系统',
+      icon: 'table'
     },
     children: [
       ...dataQuery,

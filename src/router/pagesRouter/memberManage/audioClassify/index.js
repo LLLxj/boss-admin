@@ -6,7 +6,8 @@ export default [
       require(['@/views/memberManage/audioClassify'], resolve)
     },
     meta: {
-      title: '音频分类'
+      title: '音频分类',
+      icon: 'table'
     }
   }
 ]

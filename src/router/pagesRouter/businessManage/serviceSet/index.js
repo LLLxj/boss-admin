@@ -6,7 +6,8 @@ export default [
       require(['@/views/businessManage/serviceSet'], resolve)
     },
     meta: {
-      title: '服务配置'
+      title: '服务配置',
+      icon: 'table'
     }
   }
 ]

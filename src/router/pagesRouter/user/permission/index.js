@@ -6,7 +6,8 @@ export default [
       require(['@/views/user/permissionList'], resolve)
     },
     meta: {
-      title: '权限管理'
+      title: '权限管理',
+      icon: 'table'
     }
   }
 ]

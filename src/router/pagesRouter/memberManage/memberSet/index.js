@@ -6,7 +6,8 @@ export default [
       require(['@/views/memberManage/memberSet'], resolve)
     },
     meta: {
-      title: '会员设置'
+      title: '会员设置',
+      icon: 'table'
     }
   }
 ]

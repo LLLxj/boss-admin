@@ -8,7 +8,8 @@ export default [
     name: 'bookQuestion',
     component: Layout,
     meta: {
-      title: '书籍问卷'
+      title: '书籍问卷',
+      icon: 'table'
     },
     children: [
       ...bookManage,

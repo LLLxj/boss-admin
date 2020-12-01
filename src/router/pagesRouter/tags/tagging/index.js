@@ -6,7 +6,8 @@ export default [
       require(['@/views/tags/tagging'], resolve)
     },
     meta: {
-      title: '打标签'
+      title: '打标签',
+      icon: 'table'
     }
   }
 ]

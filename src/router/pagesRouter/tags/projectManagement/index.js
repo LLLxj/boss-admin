@@ -6,7 +6,8 @@ export default [
       require(['@/views/tags/projectManagement'], resolve)
     },
     meta: {
-      title: '项目管理'
+      title: '项目管理',
+      icon: 'table'
     }
   }
 ]

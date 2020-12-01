@@ -6,7 +6,8 @@ export default [
       require(['@/views/statistics/asqCount'], resolve)
     },
     meta: {
-      title: '问卷统计'
+      title: '问卷统计',
+      icon: 'table'
     }
   }
 ]

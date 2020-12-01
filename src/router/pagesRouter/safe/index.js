@@ -7,7 +7,8 @@ export default [
     name: 'safe',
     component: Layout,
     meta: {
-      title: '安全云脑'
+      title: '安全云脑',
+      icon: 'table'
     },
     children: [
       ...dataValidation

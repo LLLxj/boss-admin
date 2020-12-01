@@ -6,7 +6,8 @@ export default [
       require(['@/views/bodyCheck/checkProject'], resolve)
     },
     meta: {
-      title: '检查项目'
+      title: '检查项目',
+      icon: 'table'
     }
   }
 ]

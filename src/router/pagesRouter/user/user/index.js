@@ -6,7 +6,8 @@ export default [
       require(['@/views/user/userList'], resolve)
     },
     meta: {
-      title: '用户管理'
+      title: '用户管理',
+      icon: 'table'
     }
   }
 ]

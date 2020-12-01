@@ -6,7 +6,8 @@ export default [
       require(['@/views/statistics/measurementCount'], resolve)
     },
     meta: {
-      title: '测评统计'
+      title: '测评统计',
+      icon: 'table'
     }
   }
 ]

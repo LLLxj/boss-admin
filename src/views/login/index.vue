@@ -9,52 +9,26 @@
           <el-form-item prop="pwd">
             <el-input v-model="ruleForm.pwd" type="password" placeholder="请输入密码" @keyup.enter.native="onSubmit('ruleForm')"></el-input>
           </el-form-item>
-          <el-form-item prop="captcha" v-if="isVerification">
+          <!-- <el-form-item prop="captcha" v-if="isVerification">
             <div class="verification clear">
               <el-input type="text" placeholder="请输入验证码" v-model="captcha" @keyup.enter.native="onSubmit('ruleForm')"></el-input>
               <img v-bind:src="img" alt="" @click="authCaptcha">
             </div>
-          </el-form-item>
+          </el-form-item> -->
           <el-form-item>
-            <el-button class="login_but" @click="onSubmit('ruleForm')">立即登录</el-button>
+            <el-button class="login_but" @click="handleLogin()">立即登录</el-button>
           </el-form-item>
         </el-form>
       </div>
     </div>
-    <!-- <el-form class="login-form" autoComplete="on" :model="loginForm" :rules="loginRules" ref="loginForm" label-position="left">
-      <h3 class="title">vue-element-admin</h3>
-      <el-form-item prop="username">
-        <span class="svg-container svg-container_login">
-          <svg-icon icon-class="user" />
-        </span>
-        <el-input name="username" type="text" v-model="loginForm.username" autoComplete="on" placeholder="username" />
-      </el-form-item>
-      <el-form-item prop="password">
-        <span class="svg-container">
-          <svg-icon icon-class="password"></svg-icon>
-        </span>
-        <el-input name="password" :type="pwdType" @keyup.enter.native="handleLogin" v-model="loginForm.password" autoComplete="on"
-          placeholder="password"></el-input>
-          <span class="show-pwd" @click="showPwd"><svg-icon icon-class="eye" /></span>
-      </el-form-item>
-      <el-form-item>
-        <el-button type="primary" style="width:100%;" :loading="loading" @click.native.prevent="handleLogin">
-          Sign in
-        </el-button>
-      </el-form-item>
-      <div class="tips">
-        <span style="margin-right:20px;">username: admin</span>
-        <span> password: admin</span>
-      </div>
-    </el-form> -->
   </div>
 </template>
 
 <script>
 // import { isvalidUsername } from '@/utils/validate'
-// import System from '@/api/login'
-// import { setToken } from '@/utils/auth'
-
+import System from '@/api/login'
+import { setToken } from '@/utils/auth'
+import md5 from 'js-md5'
 export default {
   name: 'login',
   data () {
@@ -75,13 +49,11 @@ export default {
     return {
       ruleForm: {
         account: '',
-        pwd: ''
+        pwd: '',
+        captcha: '',
+        captchaToken: ''
       },
       isVerification: false,
-      loginForm: {
-        username: '哈士奇',
-        password: '123456'
-      },
       rules: {
         account: [
           { required: true, message: '用户名不能为空', trigger: 'blur' }
@@ -103,30 +75,30 @@ export default {
       }
     },
     handleLogin () {
-      this.$refs.loginForm.validate(valid => {
+      this.$refs.ruleForm.validate(valid => {
         if (valid) {
-        //   this.loading = true
-        //   System.login(this.loginForm).then(({ data }) => {
-        //     const { code, msg, result } = data
-        //     if (code === 200) {
-        //       this.$message.success(msg)
-        //       setToken(result)
-        //       this.$router.push({ path: this.redirect || '/' })
-        //       this.$store.dispatch('Login', result)
-        //     } else {
-        //       this.loading = false
-        //       this.$message({
-        //         message: msg,
-        //         type: 'error',
-        //         duration: 1500
-        //       })
-        //     }
-        //   }).catch(() => {
-        //     this.loading = false
-        //   })
-        // } else {
-        //   console.log('error submit!!')
-        //   return false
+          this.loading = true
+          this.ruleForm.pwd = md5(this.ruleForm.pwd)
+          System.login(this.ruleForm).then(res => {
+            const { code, desc, data } = res.data
+            if (code === '0000') {
+              setToken(data.token)
+              this.$router.push({ path: this.redirect || '/' })
+              this.$store.dispatch('Login', data.token)
+            } else {
+              this.loading = false
+              this.$message({
+                message: desc,
+                type: 'error',
+                duration: 1500
+              })
+            }
+          }).catch(() => {
+            this.loading = false
+          })
+        } else {
+          console.log('error submit!!')
+          return false
         }
       })
     }

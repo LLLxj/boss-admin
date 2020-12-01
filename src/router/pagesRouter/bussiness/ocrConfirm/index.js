@@ -6,7 +6,8 @@ export default [
       require(['@/views/bussiness/ocrConfirm'], resolve)
     },
     meta: {
-      title: 'OCR确认'
+      title: 'OCR确认',
+      icon: 'table'
     }
   }
 ]

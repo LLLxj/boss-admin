@@ -18,7 +18,7 @@
         <i class="el-icon-caret-bottom"></i>
       </div> -->
       <div class="avatar-wrapper">
-        <div class="user-name">{{name}}</div>
+        <div class="user-name">{{userInfo.name}}</div>
         <i class="el-icon-caret-bottom"></i>
       </div>
       <el-dropdown-menu class="user-dropdown"
@@ -65,7 +65,8 @@ export default {
     ...mapGetters([
       'sidebar',
       'avatar',
-      'name'
+      'name',
+      'userInfo'
     ])
   },
   init () {
@@ -94,7 +95,8 @@ export default {
       //   location.reload() // 为了重新实例化vue-router对象 避免bug
       // })
       System.logout().then(res => {
-        if (res.data && res.data.code === 0) {
+        console.log(res)
+        if (res.data && res.data.code === '0000') {
           removeToken()
           this.$router.push({ path: '/login' })
         }
@@ -125,6 +127,7 @@ export default {
       display: inline-block;
       position: absolute;
       right: 35px;
+      top: 0;
       .avatar-wrapper {
         cursor: pointer;
         margin-top: 5px;

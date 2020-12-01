@@ -6,7 +6,8 @@ export default [
       require(['@/views/healthyClass/categoryManage'], resolve)
     },
     meta: {
-      title: '健康分类管理'
+      title: '健康分类管理',
+      icon: 'table'
     }
   }
 ]

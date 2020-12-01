@@ -6,7 +6,8 @@ export default [
       require(['@/views/healthyClass/measureManage'], resolve)
     },
     meta: {
-      title: '健康测评管理'
+      title: '健康测评管理',
+      icon: 'table'
     }
   }
 ]

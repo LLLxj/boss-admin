@@ -6,7 +6,8 @@ export default [
       require(['@/views/businessManage/diseaseRiskCount'], resolve)
     },
     meta: {
-      title: '疾病风险测评统计'
+      title: '疾病风险测评统计',
+      icon: 'table'
     }
   }
 ]

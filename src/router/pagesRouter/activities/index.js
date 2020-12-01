@@ -8,7 +8,8 @@ export default [
     redirect: '/activities/mask',
     component: Layout,
     meta: {
-      title: '活动管理'
+      title: '活动管理',
+      icon: 'table'
     },
     children: [
       ...mask

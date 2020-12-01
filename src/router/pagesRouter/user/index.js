@@ -9,7 +9,8 @@ export default [
     name: 'user',
     component: Layout,
     meta: {
-      title: '用户管理'
+      title: '用户管理',
+      icon: 'table'
     },
     children: [
       ...permission,

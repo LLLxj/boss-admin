@@ -4,7 +4,8 @@ export default [
     name: 'activities-mask',
     component: () => import('@/views/activities/mask'),
     meta: {
-      title: '口罩活动'
+      title: '口罩活动',
+      icon: 'table'
     }
   }
 ]

@@ -6,7 +6,8 @@ export default [
       require(['@/views/memberManage/serviceManage'], resolve)
     },
     meta: {
-      title: '服务管理'
+      title: '服务管理',
+      icon: 'table'
     }
   }
 ]

@@ -2,11 +2,10 @@ import request from '@/utils/request'
 
 const baseUrl = '/apiPro'
 
-class System {
-  static login (data) {
+class Business {
+  static unHandle (data) { // ocr待处理列表
     return request({
-      url: `${baseUrl}/auth/login`,
-      // url: `${baseUrl}/login`,
+      url: `${baseUrl}/ev/ocr/unmanagelist`,
       method: 'post',
       data
     })
@@ -14,18 +13,17 @@ class System {
 
   static info (data) {
     return request({
-      url: `${baseUrl}/permission/queryall`,
-      method: 'post',
-      data
+      url: `${baseUrl}/sys/info/` + data,
+      method: 'get'
     })
   }
 
   static logout () {
     return request({
-      url: `${baseUrl}/auth/logout`,
+      url: `${baseUrl}/sys/logout`,
       method: 'post'
     })
   }
 }
 
-export default System
+export default Business

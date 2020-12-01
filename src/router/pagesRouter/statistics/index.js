@@ -11,7 +11,8 @@ export default [
     name: 'statistics',
     component: Layout,
     meta: {
-      title: '查询统计'
+      title: '查询统计',
+      icon: 'table'
     },
     children: [
       ...asqCount,

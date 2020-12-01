@@ -6,7 +6,8 @@ export default [
       require(['@/views/memberManage/videoClassify'], resolve)
     },
     meta: {
-      title: '音频分类'
+      title: '音频分类',
+      icon: 'table'
     }
   }
 ]

@@ -6,7 +6,8 @@ export default [
       require(['@/views/bookQuestion/bookManage'], resolve)
     },
     meta: {
-      title: '书籍问卷管理'
+      title: '书籍问卷管理',
+      icon: 'table'
     }
   }
 ]

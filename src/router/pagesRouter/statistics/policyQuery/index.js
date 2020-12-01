@@ -6,7 +6,8 @@ export default [
       require(['@/views/statistics/policyQuery'], resolve)
     },
     meta: {
-      title: '保单查询'
+      title: '保单查询',
+      icon: 'table'
     }
   }
 ]

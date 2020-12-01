@@ -7,7 +7,8 @@ export default [
     component: Layout,
     name: 'cms',
     meta: {
-      title: 'CMS'
+      title: 'CMS',
+      icon: 'table'
     },
     children: [
       ...cmsClassify,

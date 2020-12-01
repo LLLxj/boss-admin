@@ -6,7 +6,8 @@ export default [
       require(['@/views/cms/cmsClassify'], resolve)
     },
     meta: {
-      title: '分类管理'
+      title: '分类管理',
+      icon: 'table'
     }
   }
 ]

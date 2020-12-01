@@ -6,7 +6,8 @@ export default [
       require(['@/views/pinecone/insuranceDemand'], resolve)
     },
     meta: {
-      title: '保险需求'
+      title: '保险需求',
+      icon: 'table'
     }
   }
 ]

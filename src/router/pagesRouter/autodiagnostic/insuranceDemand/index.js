@@ -6,7 +6,8 @@ export default [
       require(['@/views/autodiagnostic/categotyManage'], resolve)
     },
     meta: {
-      title: '数据查询'
+      title: '数据查询',
+      icon: 'table'
     }
   }
 ]
