@@ -91,11 +91,7 @@ export default {
       screenfull.toggle()
     },
     logout () {
-      // this.$store.dispatch('logout').then(() => {
-      //   location.reload() // 为了重新实例化vue-router对象 避免bug
-      // })
       System.logout().then(res => {
-        console.log(res)
         if (res.data && res.data.code === '0000') {
           removeToken()
           this.$router.push({ path: '/login' })

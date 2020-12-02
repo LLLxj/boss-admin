@@ -7,7 +7,10 @@ export default [
     },
     meta: {
       title: '保费统计',
-      icon: 'table'
+      icon: 'table',
+      roles: [
+        'premiumCount'
+      ]
     }
   }
 ]

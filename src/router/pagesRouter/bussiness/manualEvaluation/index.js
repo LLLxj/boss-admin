@@ -7,7 +7,10 @@ export default [
     },
     meta: {
       title: '人工测评',
-      icon: 'table'
+      icon: 'table',
+      roles: [
+        'ev:auditlist'
+      ]
     }
   }
 ]

@@ -53,14 +53,9 @@ const user = {
         System.info({ token: token }).then(response => {
           const { code, data, desc } = response.data
           if (code === '0000') {
-            console.log('路由跳转获取权限')
-            console.log(data)
-            // const data = response.data
             if (data.permissionList && data.permissionList.length > 0) { // 验证返回的roles是否是一个非空数组
               commit('SET_ROLES', data.permissionList)
             }
-            console.log(data)
-            console.log(data.userInfo)
             commit('SET_USERINFO', data.userInfo)
             resolve(response)
           } else {

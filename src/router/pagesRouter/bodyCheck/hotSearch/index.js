@@ -6,8 +6,11 @@ export default [
       require(['@/views/bodyCheck/hotSearch'], resolve)
     },
     meta: {
-      title: '测评管理',
-      icon: 'table'
+      title: '热门搜索',
+      icon: 'table',
+      roles: [
+        'hotSearch:list'
+      ]
     }
   }
 ]

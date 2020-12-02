@@ -7,7 +7,10 @@ export default [
     },
     meta: {
       title: 'OCR确认',
-      icon: 'table'
+      icon: 'table',
+      roles: [
+        'ev:ocrlist'
+      ]
     }
   }
 ]

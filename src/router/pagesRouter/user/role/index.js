@@ -7,7 +7,10 @@ export default [
     },
     meta: {
       title: '角色管理',
-      icon: 'table'
+      icon: 'table',
+      roles: [
+        'roler:manage'
+      ]
     }
   }
 ]

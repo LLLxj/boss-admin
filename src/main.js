@@ -8,10 +8,13 @@ import './assets/css/index.scss'
 import '@/styles/index.scss' // global css
 import '@/icons' // icon
 import '@/permission' // permission control
+import permission from '@/directive/permission/index.js' // 权限判断指令
 
 Vue.config.productionTip = false
 
-Vue.use(ElementUI, { size: 'small' })
+Vue.directive('permission', permission)
+
+Vue.use(ElementUI, { size: 'medium' })
 
 new Vue({
   router,

@@ -23,6 +23,12 @@
   max-width: 200px;
 }
 
+.common-pagination{
+  display: flex;
+  margin: 20px 0;
+  flex-direction: row-reverse;
+}
+
 @mixin subForm {
   width: 50%;
   height: 50%;

@@ -14,18 +14,35 @@ router.beforeEach((to, from, next) => {
       NProgress.done() // if current page is dashboard will not trigger afterEach hook, so manually handle it
     } else {
       next()
-      if (store.getters.roles.length === 0) {
-        store.dispatch('GetInfo').then(res => { // 拉取用户信息
-          next()
-        }).catch((err) => {
-          store.dispatch('FedLogOut').then(() => {
-            Message.error(err || 'Verification failed, please login again')
-            next({ path: '/' })
+      store.dispatch('GetInfo').then(res => { // 拉取用户信息
+        const { code, data } = res.data
+        if (code === '0000') {
+          // const memuPerms = []
+          // const handlePerms = []
+          const perms = []
+          data.permissionList.permissionList.forEach(item => {
+            // if ((item.type === 0 || item.type === 1)) { // 0 一级菜单 1 二级菜单
+            //   memuPerms.push(item)
+            // } else if (item.type === 2) {
+            //   handlePerms.push(item.permission)
+            // }
+            if (item.permission) {
+              perms.push(item.permission)
+            }
           })
-        })
-      } else {
+          // store.dispatch('GenerateRoutes', { memuPerms, handlePerms }).then(() => { // 根据perms权限生成可访问的路由表
+          store.dispatch('GenerateRoutes', { perms }).then(() => { // 根据perms权限生成可访问的路由表
+            // router.addRoutes(store.getters.addRouters) // 动态添加可访问路由表
+            // next({ ...to, replace: true }) // hack方法 确保addRoutes已完成 ,set the replace: true so the navigation will not leave a history record
+          })
+        }
         next()
-      }
+      }).catch((err) => {
+        store.dispatch('FedLogOut').then(() => {
+          Message.error(err || 'Verification failed, please login again')
+          next({ path: '/' })
+        })
+      })
     }
   } else {
     if (whiteList.indexOf(to.path) !== -1) {

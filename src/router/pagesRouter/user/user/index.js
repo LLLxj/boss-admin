@@ -7,7 +7,10 @@ export default [
     },
     meta: {
       title: '用户管理',
-      icon: 'table'
+      icon: 'table',
+      roles: [
+        'user:manage'
+      ]
     }
   }
 ]

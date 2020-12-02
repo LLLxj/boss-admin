@@ -7,7 +7,10 @@ export default [
     },
     meta: {
       title: '保单查询',
-      icon: 'table'
+      icon: 'table',
+      roles: [
+        'policyQuery'
+      ]
     }
   }
 ]

@@ -7,7 +7,10 @@ export default [
     },
     meta: {
       title: '数据验证',
-      icon: 'table'
+      icon: 'table',
+      roles: [
+        'dataValidation'
+      ]
     }
   }
 ]

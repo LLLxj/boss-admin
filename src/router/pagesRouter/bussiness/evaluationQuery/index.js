@@ -7,7 +7,10 @@ export default [
     },
     meta: {
       title: '测评管理',
-      icon: 'table'
+      icon: 'table',
+      roles: [
+        'role:listall'
+      ]
     }
   }
 ]

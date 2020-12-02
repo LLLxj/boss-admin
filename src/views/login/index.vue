@@ -83,6 +83,18 @@ export default {
             const { code, desc, data } = res.data
             if (code === '0000') {
               setToken(data.token)
+              const tempList = []
+              console.log('-获取菜单')
+              console.log(data.menuList)
+              data.menuList.forEach(item => {
+                if (item.childBossPermission && item.childBossPermission.length) {
+                  item.childBossPermission.forEach(chiItem => {
+                    if (chiItem.permission) {
+                      tempList.push(chiItem.permission)
+                    }
+                  })
+                }
+              })
               this.$router.push({ path: this.redirect || '/' })
               this.$store.dispatch('Login', data.token)
             } else {

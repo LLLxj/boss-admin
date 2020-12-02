@@ -21,12 +21,13 @@ const path = require('path')
 function resolve (dir) {
   return path.join(__dirname, dir)
 }
+const IS_PROD = ['production', 'test'].includes(process.env.NODE_ENV)
 module.exports = {
   publicPath: '/',
   productionSourceMap: !isProduction,
   devServer: {
     open: true,
-    hotOnly: false,
+    hotOnly: true,
     proxy: {
       '/apiPro': {
         target: process.env.VUE_APP_HOST,
@@ -39,6 +40,7 @@ module.exports = {
     }
   },
   chainWebpack: config => {
+    config.resolve.symlinks(true) // 修复热更新失效
     config.plugin('html')
       .tap(args => {
         args[0].cdn = isProduction ? proCDN : devCDN
@@ -75,6 +77,7 @@ module.exports = {
   },
   css: {
     // 向预处理器 Loader 传递选项
+    extract: IS_PROD,
     loaderOptions: {
       scss: {
       // 全局变量
