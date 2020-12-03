@@ -26,7 +26,7 @@
       </el-table-column>
       <el-table-column label="操作" width="150" align="center" header-align="center">
         <template slot-scope="scope">
-          <el-button size="mini" type="text" @click.stop="handleEdit(scope.row.id)">详情</el-button>
+          <el-button type="text" @click.stop="handleEdit(scope.row.id)">详情</el-button>
         </template>
       </el-table-column>
     </el-table>

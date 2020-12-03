@@ -1,38 +1,43 @@
 <template>
   <div class="app-container">
+     <el-tabs v-model="activeName" @tab-click="handleTabClick">
+      <el-tab-pane v-for="item in orderStatusFormat" :key="item.value" :name="item.label" :label="item.label" />
+    </el-tabs>
     <el-form :inline="true" :model="searchData" @keyup.enter.native="getDataList()">
       <el-form-item label="测评编号">
         <el-input v-model="searchData.evRecordNo" placeholder="请输入测评编号" clearable></el-input>
       </el-form-item>
       <el-form-item label="提交时间">
-        <el-date-picker v-model="searchData.rangeTime" type="datetimerange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" />
+        <el-date-picker v-model="searchData.rangeTime" type="datetimerange" value-format="yyyy-MM-dd HH:mm:ss" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" />
       </el-form-item>
       <el-form-item>
-        <el-button @click="getDataList()">查询</el-button>
+        <el-button type="primary" @click="getDataList()">查询</el-button>
         <el-button @click="resetSearch()">重置</el-button>
-        <el-button type="primary" @click="addHandle()">新增</el-button>
+        <el-button type="primary" v-permission="['ev:ocr/batchreceive']" @click="batchHandle()">批量领取</el-button>
+        <!-- <el-button type="primary" @click="addHandle()">新增</el-button> -->
       </el-form-item>
     </el-form>
-    <el-button-group>
-      <el-button size="medium" type="primary" icon="el-icon-edit">待领取</el-button>
-      <el-button size="medium" type="primary" icon="el-icon-share">待处理</el-button>
-      <el-button size="medium" type="primary" icon="el-icon-delete">已处理</el-button>
-      <el-button size="medium" type="primary" icon="el-icon-delete">批量领取</el-button>
-    </el-button-group>
+    <!-- <el-button-group class="button-grounp">
+      <el-button v-permission="['ev:ocr/receivelist']" size="medium" type="primary" icon="el-icon-edit" @click="ungetHandle()">待领取</el-button>
+      <el-button v-permission="['ev:ocr/unmanagelist']" size="medium" type="primary" icon="el-icon-share" @click="unHandle()">待处理</el-button>
+      <el-button v-permission="['ev:ocr/managelist']" size="medium" type="primary" icon="el-icon-delete" @click="hadHandle()">已处理</el-button>
+      <el-button v-permission="['ev:ocr/batchreceive']" size="medium" type="primary" icon="el-icon-delete" @click="batchHandle()">批量领取</el-button>
+    </el-button-group> -->
     <el-table :data="list" v-loading.body="listLoading" element-loading-text="Loading" border fit highlight-current-row>
-      <el-table-column header-align="center" align="center" type="index" label="序号" width="60" >
+      <el-table-column header-align="center" align="center" type="index" label="序号" width="80" >
       </el-table-column>
       <el-table-column label="测评编号" prop="evRecordNo" align="center" header-align="center" min-width="80"/>
       <el-table-column label="提交时间" prop="createTimeDesc" header-align="center" align="center" min-width="80" />
       <el-table-column label="机器识别" prop="ocrStatus" header-align="center" align="center" min-width="120">
         <template slot-scope="scope">
-          <div>{{scope.row.isOwner ? '是' : '否' }}</div>
+          <el-tag v-if="scope.row.ocrStatus">是</el-tag>
+          <el-tag v-if="!scope.row.ocrStatus" type="danger">否</el-tag>
         </template>
       </el-table-column>
       <el-table-column label="是否本人" prop="state" header-align="center" align="center" min-width="80">
         <template slot-scope="scope">
-          <el-tag v-if="scope.row.state === 0" type="info">隐藏</el-tag>
-          <el-tag v-else>显示</el-tag>
+          <el-tag v-if="scope.row.isOwner">是</el-tag>
+          <el-tag v-else type="danger">否</el-tag>
         </template>
       </el-table-column>
       <el-table-column label="操作" width="150" align="center" header-align="center">
@@ -43,8 +48,8 @@
       </el-table-column>
     </el-table>
     <!-- 分页 -->
-    <div class="x-pagination">
-        <el-pagination
+    <div class="x-pagination" v-if="list && list.length">
+      <el-pagination
         background
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
@@ -53,29 +58,35 @@
         :page-size="pageSize"
         layout="total, sizes, prev, pager, next, jumper"
         :total="totalNum">
-        </el-pagination>
+      </el-pagination>
     </div>
   </div>
 </template>
 
 <script>
 import Business from '@/api/business'
-// import { dateSubstring } from '@/utils/index'
+import Permissions from '@/utils/permissions'
 
 export default {
   data () {
     return {
       list: [],
       listLoading: true,
+      activeName: '',
       // 搜索条件
       searchData: {
         evRecordNo: '',
         rangeTime: '',
         page: {
-          pageSize: 1,
-          currentPage: 10
+          pageSize: 10,
+          currentPage: 1
         }
       },
+      orderStatusFormat: [
+        { label: '待领取', value: 1, permission: 'ev:ocr/receivelist' },
+        { label: '待处理', value: 2, permission: 'ev:ocr/unmanagelist' },
+        { label: '已处理', value: 3, permission: 'ev:ocr/managelist' }
+      ],
       //  分页参数
       pageSizes: [10, 20, 30, 40],
       pageSize: 10,
@@ -84,19 +95,71 @@ export default {
     }
   },
   created () {
-    this.getDataList()
+    this.getDataListHandle()
   },
   components: {
 
   },
   methods: {
     getDataList () {
+      this.searchData.page.currentPage = 1
+      this.toSearch()
+    },
+    toSearch () {
+      if (this.activeName === '待领取') {
+        this.ungetHandle()
+      } else if (this.activeName === '待处理') {
+        this.unHandle()
+      } else if (this.activeName === '已处理') {
+        this.hadHandle()
+      }
+    },
+    getDataListHandle () {
+      this.orderStatusFormat = Permissions.checkPermissionList(this.orderStatusFormat)
+      this.activeName = this.orderStatusFormat[0].label
+      this.toSearch()
+    },
+    ungetHandle () { // 待领取
+      console.log('待领取')
+      this.listLoading = true
       const postData = this.searchData
       if (postData.rangeTime && postData.rangeTime.length) {
         postData.beginSubmitTime = postData.rangeTime[0]
         postData.endSubmitTime = postData.rangeTime[1]
       }
+      Business.ungetHandle(postData).then(res => {
+        const { code, desc, data, totalRecord } = res.data
+        if (code === '0000') {
+          // 处理数据
+          this.listLoading = false
+          this.list = data.datas
+          this.totalNum = totalRecord
+        } else {
+          this.listLoading = false
+          this.$message({
+            message: desc,
+            type: 'error',
+            duration: 1500
+          })
+        }
+      }).catch(err => {
+        this.listLoading = false
+        console.log(err)
+        this.$message({
+          message: err || '读取接口失败！',
+          type: 'error',
+          duration: 1500
+        })
+      })
+    },
+    unHandle () { // 待处理
+      console.log('待处理')
       this.listLoading = true
+      const postData = this.searchData
+      if (postData.rangeTime && postData.rangeTime.length) {
+        postData.beginSubmitTime = postData.rangeTime[0]
+        postData.endSubmitTime = postData.rangeTime[1]
+      }
       Business.unHandle(postData).then(res => {
         const { code, desc, data, totalRecord } = res.data
         if (code === '0000') {
@@ -121,6 +184,48 @@ export default {
           duration: 1500
         })
       })
+    },
+    hadHandle () { // 已处理
+      this.listLoading = true
+      const postData = this.searchData
+      if (postData.rangeTime && postData.rangeTime.length) {
+        postData.beginSubmitTime = postData.rangeTime[0]
+        postData.endSubmitTime = postData.rangeTime[1]
+      }
+      Business.hadHandle(postData).then(res => {
+        const { code, desc, data } = res.data
+        if (code === '0000') {
+          this.list = []
+          // 处理数据
+          this.listLoading = false
+          this.list = data.datas
+          this.totalNum = data.totalRecord
+        } else {
+          this.listLoading = false
+          this.$message({
+            message: desc,
+            type: 'error',
+            duration: 1500
+          })
+        }
+      }).catch(err => {
+        this.listLoading = false
+        console.log(err)
+        this.$message({
+          message: err || '读取接口失败！',
+          type: 'error',
+          duration: 1500
+        })
+      })
+    },
+    batchHandle () { // 批量处理
+
+    },
+    handleTabClick (tab) {
+      this.searchData.page.currentPage = 1
+      this.searchData.page.pageSize = 10
+      this.activeName = tab.name
+      this.toSearch()
     },
     // 编辑
     handleEdit (row) {
@@ -175,19 +280,14 @@ export default {
         }
       })
     },
-    // 搜索
-    search () {
-      this.searchData.currentPage = 1
-      this.getDataList()
-    },
     // 置空搜索
     resetSearch () {
       this.searchData = {
         evRecordNo: '',
-        rangeTime: '',
+        rangeTime: undefined,
         page: {
-          pageSize: 1,
-          currentPage: 10
+          pageSize: 10,
+          currentPage: 1
         }
       }
       this.getDataList()
@@ -195,12 +295,12 @@ export default {
     // 分页事件
     handleSizeChange (row) {
     // 每页显示数改变
-      this.searchData.pageSize = row
+      this.searchData.page.pageSize = row
       this.getDataList()
     },
     handleCurrentChange (row) {
     // 当前页改变
-      this.searchData.currentPage = row
+      this.searchData.page.currentPage = row
       this.getDataList()
     },
     // 分页end
@@ -220,5 +320,8 @@ export default {
   overflow: hidden;
   text-overflow:ellipsis;
   white-space: nowrap;
+}
+.button-grounp{
+  margin: 10px 0 20px 0;
 }
 </style>

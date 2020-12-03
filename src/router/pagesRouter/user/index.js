@@ -13,9 +13,9 @@ export default [
       icon: 'table'
     },
     children: [
-      ...permission,
+      ...user,
       ...role,
-      ...user
+      ...permission
     ]
   }
 ]

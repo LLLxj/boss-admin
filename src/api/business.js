@@ -11,6 +11,22 @@ class Business {
     })
   }
 
+  static ungetHandle (data) { // ocr待领取
+    return request({
+      url: `${baseUrl}/ev/ocr/receivelist`,
+      method: 'post',
+      data
+    })
+  }
+
+  static hadHandle (data) { // ocr已处理
+    return request({
+      url: `${baseUrl}/ev/ocr/managelist`,
+      method: 'post',
+      data
+    })
+  }
+
   static info (data) {
     return request({
       url: `${baseUrl}/sys/info/` + data,

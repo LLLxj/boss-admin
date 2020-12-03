@@ -5,7 +5,6 @@ export default {
   inserted (el, binding, vnode) {
     const { value } = binding
     const perms = store.getters && store.getters.roles
-
     if (value && value instanceof Array && value.length > 0) {
       const permissions = value
 
