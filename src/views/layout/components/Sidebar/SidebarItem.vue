@@ -7,7 +7,7 @@
   <div class="menu-wrapper">
     <template v-for="item in routes">
       <div class="menu-box" v-if="!item.hidden && item.children" :key="item.path">
-        <router-link v-if="hasOneShowingChildren(item.children) && !item.children[0].children&&!item.alwaysShow"
+        <!-- <router-link v-if="hasOneShowingChildren(item.children) && !item.children[0].children&&!item.alwaysShow"
                    :to="item.path+'/'+item.children[0].path"
                    :key="item.children[0].name">
           <el-menu-item :index="item.path+'/'+item.children[0].path"
@@ -17,9 +17,10 @@
             <span v-if="item.children[0].meta&&item.children[0].meta.title"
                   slot="title">{{item.children[0].meta.title}}</span>
           </el-menu-item>
-        </router-link>
+        </router-link> -->
 
-        <el-submenu v-else
+        <!-- <el-submenu v-else -->
+        <el-submenu
                     :index="item.name||item.path"
                     :key="item.name">
           <template slot="title">

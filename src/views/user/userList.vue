@@ -16,6 +16,7 @@
       <el-form-item>
         <el-button type="primary" @click="getDataListHandle()">查询</el-button>
         <el-button @click="resetSearch()">重置</el-button>
+        <el-button type="primary" @click="addHandle()">创建用户</el-button>
       </el-form-item>
     </el-form>
     <el-table :data="list" v-loading.body="listLoading" element-loading-text="Loading" border fit highlight-current-row>
@@ -58,17 +59,21 @@
         :total="totalNum">
       </el-pagination>
     </div>
-    <ResetPas v-if="resetPasVisible" ref="ResetPas" />
-    <EditRoles v-if="editRolesVisible" ref="EditRoles" />
+
+    <ResetPas v-if="resetPasVisible" ref="ResetPas" @get-data-list="getDataList"/>
+    <EditRoles v-if="editRolesVisible" ref="EditRoles" @get-data-list="getDataList" />
+    <CreateUser v-if="createUserVisible" ref="CreateUser" @get-data-list="getDataList" />
   </div>
 </template>
 
 <script>
-import User from '@/api/user'
+import User from '@/api/user/user'
 import ResetPas from '@/components/ResetPas/index'
 import EditRoles from '@/components/EditRoles/index'
+import CreateUser from '@/components/CreateUser/index'
 
 export default {
+  name: 'user-list',
   data () {
     return {
       list: [],
@@ -95,14 +100,15 @@ export default {
       currentPage: 1,
       totalNum: 100,
       resetPasVisible: false,
-      editRolesVisible: false
+      editRolesVisible: false,
+      createUserVisible: false
     }
   },
   mounted () {
     this.getDataList()
   },
   components: {
-    ResetPas, EditRoles
+    ResetPas, EditRoles, CreateUser
   },
   methods: {
     getDataListHandle () {
@@ -149,11 +155,9 @@ export default {
     },
     // 新增
     addHandle () {
-      this.$router.push({
-        name: 'addColumn',
-        query: {
-
-        }
+      this.createUserVisible = true
+      this.$nextTick(() => {
+        this.$refs.CreateUser.init()
       })
     },
     normalHandle (id) { // 启用

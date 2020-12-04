@@ -43,6 +43,14 @@ class User {
     })
   }
 
+  static updateRoles (data) { // 更新用户角色
+    return request({
+      url: `${baseUrl}/user/setroles`,
+      method: 'post',
+      data
+    })
+  }
+
   static disable (data) { // 禁用
     return request({
       url: `${baseUrl}/user/delete`,
@@ -63,6 +71,14 @@ class User {
     return request({
       url: `${baseUrl}/auth/logout`,
       method: 'post'
+    })
+  }
+
+  static save (data) {
+    return request({
+      url: `${baseUrl}/user/create`,
+      method: 'post',
+      data
     })
   }
 }

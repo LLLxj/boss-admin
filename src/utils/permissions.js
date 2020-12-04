@@ -36,6 +36,11 @@ class CheckPermission {
       return list
     }
   }
+
+  static hasPermission (value) {
+    const perms = store.getters && store.getters.roles
+    return perms.includes(value)
+  }
 }
 
 export default CheckPermission

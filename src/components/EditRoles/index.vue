@@ -1,6 +1,6 @@
 <template>
   <el-dialog title="分配角色" :visible.sync="visible" :close-on-click-modal="false" width="800px">
-    <el-form :model="dataForm" ref="dataForm" :rules="rules" label-width="100px">
+    <el-form :model="dataForm" ref="dataForm" label-width="100px">
       <el-form-item label="管理员:" prop="adminList">
         <el-checkbox-group v-model="dataForm.adminList" @change="handleAdmin">
           <el-checkbox v-for="item in adminList" :label="item.id" :key="item.id">{{item.name}}</el-checkbox>
@@ -20,9 +20,8 @@
 </template>
 
 <script>
-import User from '@/api/user'
-import md5 from 'js-md5'
-import { removeToken } from '@/utils/auth'
+import User from '@/api/user/user'
+
 export default {
   data () {
     return {
@@ -34,12 +33,7 @@ export default {
       adminList: [],
       unAdminList: [],
       id: '',
-      visible: false,
-      rules: {
-        password: [
-          { required: true, message: '密码不能为空', trigger: 'blur' }
-        ]
-      }
+      visible: false
     }
   },
   methods: {
@@ -99,32 +93,34 @@ export default {
       console.log(item)
     },
     sumbit () {
-      this.$refs.dataForm.validate((valid) => {
-        if (valid) {
-          const params = {
-            id: this.id,
-            pwd: md5(this.dataForm.password)
-          }
-          User.resetPas(params).then(res => {
-            const { code, desc } = res.data
-            if (code === '0000') {
-              this.$message({
-                message: desc,
-                type: 'success',
-                duration: 1500,
-                onClose: () => {
-                  removeToken()
-                  this.$router.push({ path: '/login' })
-                }
-              })
-            } else {
-              this.$message.error(desc)
+      const checkAll = [...this.dataForm.adminList, ...this.dataForm.unAdminList]
+      var ids = ''
+      checkAll.forEach(item => {
+        ids += item + ','
+      })
+      ids = ids.substr(0, ids.length - 1)
+      const params = {
+        userId: this.id,
+        roleIds: ids
+      }
+      User.updateRoles(params).then(res => {
+        const { code, desc } = res.data
+        if (code === '0000') {
+          this.$message({
+            message: desc,
+            type: 'success',
+            duration: 1500,
+            onClose: () => {
+              this.visible = false
+              this.$emit('get-data-list')
             }
-          }).catch(err => {
-            console.log(err)
-            this.$message.error(err)
           })
+        } else {
+          this.$message.error(desc)
         }
+      }).catch(err => {
+        console.log(err)
+        this.$message.error(err)
       })
     },
     cancle () {

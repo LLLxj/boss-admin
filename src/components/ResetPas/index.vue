@@ -13,9 +13,9 @@
 </template>
 
 <script>
-import User from '@/api/user'
+import User from '@/api/user/user'
+
 import md5 from 'js-md5'
-import { removeToken } from '@/utils/auth'
 export default {
   data () {
     return {
@@ -37,9 +37,7 @@ export default {
       this.id = id
     },
     resetForm () {
-      // this.$nextTick(() => {
       this.$refs.dataForm.resetFields()
-      // })
     },
     sumbit () {
       this.$refs.dataForm.validate((valid) => {
@@ -56,8 +54,7 @@ export default {
                 type: 'success',
                 duration: 1500,
                 onClose: () => {
-                  removeToken()
-                  this.$router.push({ path: '/login' })
+                  this.$emit('get-data-list')
                 }
               })
             } else {
