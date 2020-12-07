@@ -29,7 +29,7 @@
       <el-table-column label="操作" width="300" align="center" header-align="center" fixed="right">
         <template slot-scope="scope">
           <el-button v-permission="['permission:setpermission']" type="text" @click.stop="editPermission(scope.row.id)">修改权限</el-button>
-          <el-button v-permission="['role:delete']" type="text" @click.stop="deleteHandle(scope.row.id)">删除</el-button>
+          <el-button v-permission="['role:delete']" v-if="!scope.row.isAdmin" type="text" @click.stop="deleteHandle(scope.row.id)">删除</el-button>
           <!-- <el-button v-permission="['user:delete']" v-if="scope.row.status === 1" type="text" @click.stop="disableHandle(scope.row.id)">禁用</el-button>
           <el-button v-permission="['user:restore']" v-if="scope.row.status !== 1" type="text" @click.stop="normalHandle(scope.row.id)">启用</el-button> -->
         </template>

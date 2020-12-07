@@ -1,5 +1,5 @@
 <template>
-  <el-dialog title="重置密码" :visible.sync="visible" :close-on-click-modal="false" width="500px">
+  <el-dialog title="重置密码" :visible.sync="visible" :close-on-click-modal="false" width="500px" :before-close="cancle()">
     <el-form :model="dataForm" ref="dataForm" :rules="rules" label-width="100px">
       <el-form-item label="密码:" prop="password">
         <el-input type="password" v-model="dataForm.password" placeholder="请输入要重置的密码"></el-input>
