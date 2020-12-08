@@ -9,7 +9,7 @@ export default [
       title: '保费统计',
       icon: 'table',
       roles: [
-        'premiumCount'
+        'pf:premium/statistical'
       ]
     }
   }

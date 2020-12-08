@@ -15,11 +15,11 @@ export default [
       icon: 'table'
     },
     children: [
-      ...asqCount,
       ...measurementCount,
+      ...asqCount,
       ...measurementSearch,
-      ...policyQuery,
-      ...premiumCount
+      ...premiumCount,
+      ...policyQuery
     ]
   }
 ]

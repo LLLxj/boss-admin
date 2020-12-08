@@ -6,17 +6,12 @@ import { getToken, removeToken } from '@/utils/auth'
 import router from '@/router'
 // 创建axios实例
 const service = axios.create({
-  // baseURL: process.env.VUE_APP_HOST, // api的base_url
   baseURL: process.env.BASE_API, // api的base_url
-  // baseURL: '127.0.0.1',
   timeout: 15000 // 请求超时时间
 })
 
 // request拦截器
 service.interceptors.request.use(config => {
-  // console.log(Vue.cookie.get('ba-token'))
-  // config.headers['token'] = Vue.cookie.get('ba-token') // 请求头带上token
-  // if (store.getters.token) {
   config.headers.TOKEN = getToken() // 让每个请求携带自定义token 请根据实际情况自行修改
   // }
   return config
@@ -27,14 +22,14 @@ service.interceptors.request.use(config => {
 })
 
 service.adornUrl = (actionName) => {
+  console.log(1111)
+  console.log(actionName)
   // 非生产环境 && 开启代理, 接口前缀统一使用[/proxyApi/]前缀做代理拦截!
   return process.env.VUE_APP_HOST + actionName
 }
 
 // respone拦截器
 service.interceptors.response.use(
-  // response => response,
-  // response => response,
   (response) => {
     /**
     * code为非20000是抛错 可结合自己业务进行修改

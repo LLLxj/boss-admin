@@ -37,7 +37,6 @@ export default {
       Permissions.list().then(res => {
         const { code, desc, data } = res.data
         if (code === '0000') {
-          console.log(data)
           this.permissionList = data
         } else {
           this.$message.error(desc)
@@ -45,8 +44,6 @@ export default {
       })
     },
     nodeClick (data, node) { // 选中子节点或孙子节点，必须选中父节点及祖父节点，取消选中子节点或孙子节点，父节点及祖父节点可以不取消选中；
-      console.log(111)
-      console.log(node)
       this.EditInfoVisible = true
       this.$nextTick(() => {
         this.$refs.PermissionInfo.init(node.key)

@@ -50,8 +50,6 @@ export default {
   },
   methods: {
     init (data) {
-      console.log('接收parentId')
-      console.log(data)
       if (data) {
         this.visible = true
         this.id = data
@@ -65,22 +63,13 @@ export default {
       Permissions.getInfo(params).then(res => {
         const { code, desc, data } = res.data
         if (code === '0000') {
-          console.log(data)
           this.dataForm = data
         } else {
           this.$message.error(desc)
         }
       })
     },
-    addHandle () {
-      console.log('新增操作')
-    },
-    deleteHandle () {
-      console.log('删除操作')
-    },
     sumbit () {
-      console.log('提交操作')
-      console.log(this.dataForm)
       Permissions.save(this.dataForm).then(res => {
         const { code, desc } = res.data
         if (code === '0000') {

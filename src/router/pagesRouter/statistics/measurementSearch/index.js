@@ -7,7 +7,10 @@ export default [
     },
     meta: {
       title: '测评查询',
-      icon: 'table'
+      icon: 'table',
+      roles: [
+        'pf:ev/list'
+      ]
     }
   }
 ]

@@ -80,7 +80,6 @@ export default {
   methods: {
     getInfo (id) {
       Mask.info({ id: id }).then(res => {
-        console.log(res.data)
         const { code, data, desc } = res.data
         if (code === '0000') {
           this.detail = data

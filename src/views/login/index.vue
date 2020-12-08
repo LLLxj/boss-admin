@@ -7,7 +7,7 @@
             <el-input v-model="ruleForm.account" placeholder="请输入用户名"></el-input>
           </el-form-item>
           <el-form-item prop="pwd">
-            <el-input v-model="ruleForm.pwd" type="password" placeholder="请输入密码" @keyup.enter.native="onSubmit('ruleForm')"></el-input>
+            <el-input v-model="ruleForm.pwd" type="password" placeholder="请输入密码" @keyup.enter.native="handleLogin()"></el-input>
           </el-form-item>
           <!-- <el-form-item prop="captcha" v-if="isVerification">
             <div class="verification clear">
@@ -84,8 +84,6 @@ export default {
             if (code === '0000') {
               setToken(data.token)
               const tempList = []
-              console.log('-获取菜单')
-              console.log(data.menuList)
               data.menuList.forEach(item => {
                 if (item.childBossPermission && item.childBossPermission.length) {
                   item.childBossPermission.forEach(chiItem => {

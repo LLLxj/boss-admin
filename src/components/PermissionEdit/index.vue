@@ -71,8 +71,6 @@ export default {
   },
   methods: {
     init (data) {
-      console.log('点击菜单的id')
-      console.log(data)
       if (data) {
         this.visible = true
         this.id = data
@@ -86,7 +84,6 @@ export default {
       Permissions.getInfo(params).then(res => {
         const { code, desc, data } = res.data
         if (code === '0000') {
-          console.log(data)
           this.dataForm = data
         } else {
           this.$message.error(desc)
@@ -101,7 +98,6 @@ export default {
       this.resetForm()
     },
     addHandle () {
-      console.log('新增操作')
       this.addPermissionVisible = true
       const id = this.dataForm.id
       this.$nextTick(() => {
@@ -109,7 +105,6 @@ export default {
       })
     },
     deleteHandle () {
-      console.log('删除操作')
       this.$confirm('确认删除', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',

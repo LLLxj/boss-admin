@@ -98,7 +98,6 @@ export default {
     this.getDataListHandle()
   },
   components: {
-
   },
   methods: {
     getDataList () {
@@ -120,7 +119,7 @@ export default {
       this.toSearch()
     },
     ungetHandle () { // 待领取
-      console.log('待领取')
+      // console.log('待领取')
       this.listLoading = true
       const postData = this.searchData
       if (postData.rangeTime && postData.rangeTime.length) {
@@ -153,7 +152,7 @@ export default {
       })
     },
     unHandle () { // 待处理
-      console.log('待处理')
+      // console.log('待处理')
       this.listLoading = true
       const postData = this.searchData
       if (postData.rangeTime && postData.rangeTime.length) {
