@@ -2,11 +2,19 @@
   <div class="app-container">
     <el-form :inline="true" :model="searchData" @keyup.enter.native="getDataList()">
       <el-form-item label="物流状态">
-        <el-select v-model="searchData.status" @change="changeStatus" placeholder="请选择">
+        <el-select v-model="searchData.status" clearable @change="changeStatus" placeholder="请选择">
           <el-option v-for="item in statusList" :key="item.value" :label="item.label" :value="item.value">
           </el-option>
         </el-select>
       </el-form-item>
+      <el-form-item label="手机号查询">
+        <el-input v-model="searchData.phoneNo" maxlength="11" placeholder="请输入手机号" clearable></el-input>
+      </el-form-item>
+      <el-form-item>
+        <el-button type="primary" icon="el-icon-search"  @click="getDataList()">查询</el-button>
+        <el-button @click="resetSearch()">重置</el-button>
+      </el-form-item>
+
     </el-form>
     <el-table :data="list" v-loading.body="listLoading" element-loading-text="Loading" border fit highlight-current-row>
       <el-table-column header-align="center" align="center" type="index" label="序号" width="80" />
@@ -66,6 +74,7 @@ export default {
       // 搜索条件
       searchData: {
         status: '',
+        phoneNo: null,
         page: {
           currentPage: 1,
           pageSize: 10
@@ -87,6 +96,7 @@ export default {
   methods: {
     getDataList () {
       const postData = this.searchData
+      postData.phoneNo = postData.phoneNo ? postData.phoneNo : null
       if (postData.rangeTime && postData.rangeTime.length) {
         postData.beginSubmitTime = postData.rangeTime[0]
         postData.endSubmitTime = postData.rangeTime[1]
@@ -121,6 +131,7 @@ export default {
     resetSearch () {
       this.searchData = {
         status: '',
+        phone: null,
         page: {
           currentPage: 1,
           pageSize: 10
