@@ -17,11 +17,12 @@ const devCDN = {
     'https://cdn.bootcss.com/babel-polyfill/6.23.0/polyfill.min.js'
   ]
 }
+const Version = new Date().getTime()
 const path = require('path')
 function resolve (dir) {
   return path.join(__dirname, dir)
 }
-const IS_PROD = ['production', 'test'].includes(process.env.NODE_ENV)
+console.log(process.env.VUE_APP_HOST)
 module.exports = {
   publicPath: '/',
   productionSourceMap: !isProduction,
@@ -65,6 +66,8 @@ module.exports = {
     config.resolve.alias.set('@', resolve('src'))
   },
   configureWebpack: config => {
+    config.output.chunkFilename = 'js/[name].[' + Version + '].js' // 这种方式适合设备缓存不严重的
+    // config.output.chunkFilename = 'js/[name].js?v=' + Version // 这种是给打包后的chunk文件加版本号。
     if (isProduction) {
       // 用cdn方式引入
       config.externals = {
@@ -77,7 +80,6 @@ module.exports = {
   },
   css: {
     // 向预处理器 Loader 传递选项
-    extract: IS_PROD,
     loaderOptions: {
       scss: {
       // 全局变量
