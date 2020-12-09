@@ -20,7 +20,7 @@ class MeasureSearch {
 
   static info (data) {
     return request({
-      url: `${baseUrl}/pf/ev/detail/detail`,
+      url: `${baseUrl}/pf/ev/detail`,
       method: 'post',
       data
     })

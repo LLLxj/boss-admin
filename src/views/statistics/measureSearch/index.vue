@@ -35,7 +35,7 @@
       <el-table-column label="提交时间" prop="createTimeDesc" header-align="center" align="center" min-width="120" />
       <el-table-column label="操作" width="300" align="center" header-align="center" fixed="right">
         <template slot-scope="scope">
-          <el-button v-permission="['pf:ev/detail']" type="text" @click.stop="getDetail(scope.row.channelCodeMain)">查看详情</el-button>
+          <el-button v-permission="['pf:ev/detail']" type="text" @click.stop="getDetail(scope.row.id)">查看详情</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -191,11 +191,9 @@ export default {
     getDetail (row) {
       console.log(row)
       this.$router.push({
-        name: 'statistics-asqCount-detail',
+        name: 'statistics-measureSearch-detail',
         query: {
-          channelCodeMain: row,
-          startSubmitTime: this.searchData.startSubmitTime,
-          endSubmitTime: this.searchData.endSubmitTime
+          id: row
         }
       })
     },

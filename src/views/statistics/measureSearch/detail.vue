@@ -1,37 +1,66 @@
 <template>
   <el-row :gutter="24">
     <el-col :span="20">
-      <div class="row" v-if="searchData.startSubmitTime">时间:{{searchData.startSubmitTime}} — {{searchData.endSubmitTime}}</div>
-      <div class="row" v-else>时间:全部</div>
       <el-form :model="dataForm" ref="dataForm" label-width="200px">
-        <el-form-item label="渠道:">
-          <el-input v-model="dataForm.channelNameMain" readonly></el-input>
+        <el-form-item label="测评编号：">
+          <el-input v-model="dataForm.serialNumber" readonly></el-input>
         </el-form-item>
-        <el-form-item label="一级渠道问卷数量:">
-          <el-input v-model="dataForm.channelMainCount" readonly></el-input>
+        <el-form-item label="商户ID：">
+          <el-input v-model="dataForm.appId" readonly></el-input>
         </el-form-item>
-        <el-form-item label="二级渠道问卷数量:">
-          <el-input v-model="dataForm.channelSecCount" readonly></el-input>
+        <el-form-item label="商户名称：">
+          <el-input v-model="dataForm.merName" readonly></el-input>
         </el-form-item>
-        <el-form-item label="二级渠道问卷明细:">
-          <el-table :data="dataForm.datas" v-loading.body="listLoading" element-loading-text="Loading" border fit highlight-current-row>
-            <el-table-column header-align="center" align="center" type="index" label="序号" width="80" />
-            <el-table-column label="二级渠道" prop="channelNameSec" align="center" header-align="center" min-width="180"/>
-            <el-table-column label="问卷数量" prop="count" header-align="center" align="center" min-width="80" />
-          </el-table>
-          <!-- 分页 -->
-          <div class="x-pagination" v-if="dataForm.datas && dataForm.datas.length">
-            <el-pagination
-              background
-              @size-change="handleSizeChange"
-              @current-change="handleCurrentChange"
-              :current-page="currentPage"
-              :page-sizes="pageSizes"
-              :page-size="pageSize"
-              layout="total, sizes, prev, pager, next, jumper"
-              :total="totalNum">
-            </el-pagination>
+        <el-form-item label="销售渠道：">
+          <el-input v-model="dataForm.channelName" readonly></el-input>
+        </el-form-item>
+        <el-form-item label="用户唯一标识：">
+          <el-input v-model="dataForm.guId" readonly></el-input>
+        </el-form-item>
+        <el-form-item label="商户订单号：">
+          <el-input v-model="dataForm.bzId" readonly></el-input>
+        </el-form-item>
+        <el-form-item label="提交时间：">
+          <el-input v-model="dataForm.createTimeDesc" readonly></el-input>
+        </el-form-item>
+        <el-form-item label="产品名称：">
+          <el-input v-model="dataForm.productName" readonly></el-input>
+        </el-form-item>
+        <el-form-item label="保险公司：">
+          <el-input v-model="dataForm.cpName" readonly></el-input>
+        </el-form-item>
+        <el-form-item label="图片：" v-if="dataForm.imgs">
+          <viewer :images="[dataForm.imgs[imgIndex].imgUrl]" class="img_size">
+            <img style="width: 200px;height: 150px;display: inline-block" v-for="(item, index) in [dataForm.imgs[imgIndex].imgUrl]" :src="item" :key="index">
+          </viewer>
+          <div>
+            <el-button :disabled="imgIndex === 0" type="text" @click="prePage()">上一页</el-button>
+            <el-button :disabled="imgIndex === dataForm.imgs.length - 1" type="text" @click="nextPage()">下一页</el-button>
+            <el-button type="text" @click="downloadIamge('263440')">图片下载</el-button>（共{{dataForm.imgs.length}}张）
           </div>
+        </el-form-item>
+        <el-form-item label="超声文本：" v-if="dataForm.imgs">
+          <el-input v-model="dataForm.imgs[imgIndex].content" type="textarea" readonly></el-input>
+        </el-form-item>
+        <el-form-item label="ACR评级：">
+          <el-input v-model="dataForm.acrCategory" readonly></el-input>
+        </el-form-item>
+        <el-form-item label="TI评级：">
+          <el-input v-model="dataForm.tiRads" readonly></el-input>
+        </el-form-item>
+        <el-form-item label="惠美诊断结果：">
+          <el-input v-model="dataForm.hmThyroidTiDto" readonly></el-input>
+        </el-form-item>
+        <el-form-item label="最终ACR评级：">
+          <el-input v-model="dataForm.acrCategoryResult" readonly></el-input>
+        </el-form-item>
+        <el-form-item label="最终TI评级：">
+          <el-input v-model="dataForm.tiRadsResult" readonly></el-input>
+        </el-form-item>
+        <el-form-item label="核保结果：">
+          <span v-if="dataForm.acrCategoryResult == 'TR4' || dataForm.acrCategoryResult == 'TR5'">核保不通过</span>
+          <span v-else>核保通过</span>
+          <!-- <el-input v-if="dataForm.acrCategoryResult == 'TR4' || dataForm.acrCategoryResult == 'TR5'" v-model="dataForm.acrCategoryResult" readonly></el-input> -->
         </el-form-item>
       </el-form>
     </el-col>
@@ -39,7 +68,7 @@
 </template>
 
 <script>
-import Asqcount from '@/api/statistics/asqCount'
+import MeasureSearch from '@/api/statistics/measureSearch'
 import CheckPermission from '@/utils/permissions'
 export default {
   name: 'statistics-measureSearch-detail',
@@ -47,49 +76,31 @@ export default {
     return {
       listLoading: false,
       visible: false,
-      searchData: {
-        channelCodeMain: '',
-        startSubmitTime: '',
-        endSubmitTime: '',
-        currentPage: 1,
-        pageSize: 10
-      },
       dataForm: {
-        channelNameMain: '',
-        channelMainCount: '',
-        channelSecCount: '',
-        datas: []
       },
       id: '',
-      pageSizes: [10, 20, 30, 40],
-      pageSize: 10,
-      currentPage: 1,
-      totalNum: 100
+      imgIndex: 0
     }
   },
   created () {
-    const channelCodeMain = this.$route.query.channelCodeMain
-    const startSubmitTime = this.$route.query.startSubmitTime
-    const endSubmitTime = this.$route.query.endSubmitTime
-    this.searchData.channelCodeMain = channelCodeMain
-    this.searchData.startSubmitTime = startSubmitTime
-    this.searchData.endSubmitTime = endSubmitTime
-    if (CheckPermission.hasPermission('pf:qa/statisticsdetail') && channelCodeMain) {
-      this.getInfo()
+    const id = this.$route.query.id
+    if (CheckPermission.hasPermission('pf:ev/detail') && id) {
+      this.getInfo(id)
     }
   },
+  computed: {
+  },
   methods: {
-    getInfo () {
-      const params = this.searchData
+    getInfo (id) {
+      const params = {
+        id: id
+      }
       this.listLoading = true
-      Asqcount.info(params).then(res => {
+      MeasureSearch.info(params).then(res => {
         this.listLoading = false
         const { code, desc, data } = res.data
         if (code === '0000') {
-          console.log(data)
           this.dataForm = data
-          this.dataForm.datas = data.page.datas
-          this.totalNum = data.page.totalRecord
         } else {
           this.$message.error(desc)
         }
@@ -98,16 +109,35 @@ export default {
         this.$message.error(err)
       })
     },
-    // 分页事件
-    handleSizeChange (row) {
-    // 每页显示数改变
-      this.searchData.pageSize = row
-      this.getInfo()
+    prePage () {
+      if (this.imgIndex !== 0) {
+        this.imgIndex -= 1
+      }
     },
-    handleCurrentChange (row) {
-    // 当前页改变
-      this.searchData.currentPage = row
-      this.getInfo()
+    nextPage () {
+      if (this.imgIndex !== this.dataForm.imgs.length - 1) {
+        this.imgIndex += 1
+      }
+    },
+    downloadIamge (name) {
+      const src = this.dataForm.imgs[this.imgIndex].imgUrl
+      var canvas = document.createElement('canvas')
+      var img = document.createElement('img')
+      img.onload = function (e) {
+        canvas.width = img.width
+        canvas.height = img.height
+        var context = canvas.getContext('2d')
+        context.drawImage(img, 0, 0, img.width, img.height)
+        canvas.getContext('2d').drawImage(img, 0, 0, img.width, img.height)
+        canvas.toBlob((blob) => {
+          const link = document.createElement('a')
+          link.href = window.URL.createObjectURL(blob)
+          link.download = name || 'photo'
+          link.click()
+        }, 'image/jpeg')
+      }
+      img.setAttribute('crossOrigin', 'Anonymous')
+      img.src = src
     }
   }
 
