@@ -19,7 +19,7 @@
         <el-button type="primary" @click="addHandle()">创建用户</el-button>
       </el-form-item>
     </el-form>
-    <el-table :data="list" v-loading.body="listLoading" element-loading-text="Loading" border fit highlight-current-row>
+    <el-table :data="list" v-loading.body="listLoading" element-loading-text="Loading" fit highlight-current-row>
       <el-table-column header-align="center" align="center" type="index" label="序号" width="80" >
       </el-table-column>
       <el-table-column label="账号" prop="account" align="center" header-align="center" min-width="80"/>

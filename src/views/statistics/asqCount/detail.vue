@@ -14,7 +14,7 @@
           <el-input v-model="dataForm.channelSecCount" readonly></el-input>
         </el-form-item>
         <el-form-item label="二级渠道问卷明细:">
-          <el-table :data="dataForm.datas" v-loading.body="listLoading" element-loading-text="Loading" border fit highlight-current-row>
+          <el-table :data="dataForm.datas" v-loading.body="listLoading" element-loading-text="Loading" fit highlight-current-row>
             <el-table-column header-align="center" align="center" type="index" label="序号" width="80" />
             <el-table-column label="二级渠道" prop="channelNameSec" align="center" header-align="center" min-width="180"/>
             <el-table-column label="问卷数量" prop="count" header-align="center" align="center" min-width="80" />
@@ -86,7 +86,6 @@ export default {
         this.listLoading = false
         const { code, desc, data } = res.data
         if (code === '0000') {
-          console.log(data)
           this.dataForm = data
           this.dataForm.datas = data.page.datas
           this.totalNum = data.page.totalRecord
@@ -107,6 +106,9 @@ export default {
     handleCurrentChange (row) {
     // 当前页改变
       this.searchData.currentPage = row
+      this.$nextTick(function () {
+        this.currentPage = row
+      })
       this.getInfo()
     }
   }

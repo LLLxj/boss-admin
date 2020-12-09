@@ -20,7 +20,7 @@
           <el-input v-model="dataForm.channelCount" readonly></el-input>
         </el-form-item>
         <el-form-item label="销售渠道调用明细:">
-          <el-table :data="dataForm.datas" v-loading.body="listLoading" element-loading-text="Loading" border fit highlight-current-row>
+          <el-table :data="dataForm.datas" v-loading.body="listLoading" element-loading-text="Loading" fit highlight-current-row>
             <el-table-column header-align="center" align="center" type="index" label="序号" width="80" />
             <el-table-column label="销售渠道" prop="channelName" align="center" header-align="center" min-width="180"/>
             <el-table-column label="产品名称" prop="productName" header-align="center" align="center" min-width="80" />
@@ -115,6 +115,9 @@ export default {
     handleCurrentChange (row) {
     // 当前页改变
       this.searchData.currentPage = row
+      this.$nextTick(function () {
+        this.currentPage = row
+      })
       this.getInfo()
     }
   }

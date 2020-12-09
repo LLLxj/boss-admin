@@ -23,7 +23,7 @@
       <el-button v-permission="['ev:ocr/managelist']" size="medium" type="primary" icon="el-icon-delete" @click="hadHandle()">已处理</el-button>
       <el-button v-permission="['ev:ocr/batchreceive']" size="medium" type="primary" icon="el-icon-delete" @click="batchHandle()">批量领取</el-button>
     </el-button-group> -->
-    <el-table :data="list" v-loading.body="listLoading" element-loading-text="Loading" border fit highlight-current-row>
+    <el-table :data="list" v-loading.body="listLoading" element-loading-text="Loading" fit highlight-current-row>
       <el-table-column header-align="center" align="center" type="index" label="序号" width="80" >
       </el-table-column>
       <el-table-column label="测评编号" prop="evRecordNo" align="center" header-align="center" min-width="80"/>

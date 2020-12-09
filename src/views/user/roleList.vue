@@ -16,7 +16,7 @@
         <el-button v-permission="['role:save']" type="primary" @click="addHandle()">添加角色</el-button>
       </el-form-item>
     </el-form>
-    <el-table :data="list" v-loading.body="listLoading" element-loading-text="Loading" border fit highlight-current-row>
+    <el-table :data="list" v-loading.body="listLoading" element-loading-text="Loading" fit highlight-current-row>
       <el-table-column header-align="center" align="center" type="index" label="序号" width="80" >
       </el-table-column>
       <el-table-column label="角色名" prop="name" header-align="center" align="center" min-width="80" />

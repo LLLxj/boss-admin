@@ -27,7 +27,7 @@
         <el-button @click="resetSearch()">重置</el-button>
       </el-form-item>
     </el-form>
-    <el-table :data="list" v-loading.body="listLoading" element-loading-text="Loading" border fit highlight-current-row>
+    <el-table :data="list" v-loading.body="listLoading" element-loading-text="Loading" fit highlight-current-row>
       <el-table-column header-align="center" align="center" type="index" label="序号" width="80" />
       <el-table-column label="测评编号" prop="serialNumber" align="center" header-align="center" min-width="180"/>
       <el-table-column label="商户订单号" prop="bzId" header-align="center" align="center" min-width="180" />

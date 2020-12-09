@@ -16,7 +16,7 @@
       </el-form-item>
 
     </el-form>
-    <el-table :data="list" v-loading.body="listLoading" element-loading-text="Loading" border fit highlight-current-row>
+    <el-table :data="list" v-loading.body="listLoading" element-loading-text="Loading" fit highlight-current-row>
       <el-table-column header-align="center" align="center" type="index" label="序号" width="80" />
       <el-table-column label="用户ID" prop="userId" align="center" header-align="center" />
       <el-table-column label="手机号码" prop="phoneNo" header-align="center" align="center" />
