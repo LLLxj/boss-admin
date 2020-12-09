@@ -205,6 +205,9 @@ export default {
     handleCurrentChange (row) {
     // 当前页改变
       this.searchData.page.currentPage = row
+      this.$nextTick(function () {
+        this.currentPage = row
+      })
       this.getDataList()
     },
     // 分页end

@@ -1,13 +1,19 @@
 <template>
   <div class="app-container">
-    <el-form :inline="true" :model="searchData" @keyup.enter.native="getDataList()">
+    <el-form :inline="true" :model="searchData" @keyup.enter.native="getDataListHandle()">
+      <el-form-item label="测评编号">
+        <el-input v-model="searchData.serialNumber" placeholder="请输入测评编号" clearable></el-input>
+      </el-form-item>
+      <el-form-item label="商户订单号">
+        <el-input v-model="searchData.bzId" placeholder="请输入商户订单号" clearable></el-input>
+      </el-form-item>
       <el-form-item label="商户名称">
         <el-select v-model="searchData.merId" clearable filterable placeholder="请选择商户名称">
           <el-option v-for="item in storeList" :key="item.id" :label="item.name" :value="item.id">
           </el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="自定义时间">
+      <el-form-item label="提交时间">
         <el-date-picker
           v-model="searchData.rangeTime"
           :picker-options="pickerOptions"
@@ -23,12 +29,13 @@
     </el-form>
     <el-table :data="list" v-loading.body="listLoading" element-loading-text="Loading" border fit highlight-current-row>
       <el-table-column header-align="center" align="center" type="index" label="序号" width="80" />
-      <el-table-column label="商户ID" prop="appId" align="center" header-align="center" min-width="180"/>
+      <el-table-column label="测评编号" prop="serialNumber" align="center" header-align="center" min-width="180"/>
+      <el-table-column label="商户订单号" prop="bzId" header-align="center" align="center" min-width="180" />
       <el-table-column label="商户名称" prop="merName" header-align="center" align="center" min-width="80" />
-      <el-table-column label="调用次数" prop="count" header-align="center" align="center" min-width="120" />
+      <el-table-column label="提交时间" prop="createTimeDesc" header-align="center" align="center" min-width="120" />
       <el-table-column label="操作" width="300" align="center" header-align="center" fixed="right">
         <template slot-scope="scope">
-          <el-button v-permission="['pf:statistical/detail']" type="text" @click.stop="getDetail(scope.row.merId)">查看详情</el-button>
+          <el-button v-permission="['pf:ev/detail']" type="text" @click.stop="getDetail(scope.row.channelCodeMain)">查看详情</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -45,22 +52,23 @@
         :total="totalNum">
       </el-pagination>
     </div>
-
   </div>
 </template>
 
 <script>
-import MeasureCount from '@/api/statistics/measureCount'
 import CheckPermission from '@/utils/permissions'
+import MeasureSearch from '@/api/statistics/measureSearch'
 
 export default {
-  name: 'statistics-measurementCount',
+  name: 'statistics-measureSearch',
   data () {
     return {
       list: [],
       listLoading: true,
       // 搜索条件
       searchData: {
+        serialNumber: '',
+        bzId: '',
         merId: '',
         startSubmitTime: '',
         endSubmitTime: '',
@@ -102,7 +110,8 @@ export default {
       pageSizes: [10, 20, 30, 40],
       pageSize: 10,
       currentPage: 1,
-      totalNum: 100
+      totalNum: 100,
+      totalCount: ''
     }
   },
   mounted () {
@@ -116,7 +125,7 @@ export default {
   methods: {
     getStoreList () {
       this.listLoading = true
-      MeasureCount.storeList().then(res => {
+      MeasureSearch.storeList().then(res => {
         const { code, desc, data } = res.data
         if (code === '0000') {
           // 处理数据
@@ -141,8 +150,9 @@ export default {
       })
     },
     getDataListHandle () {
-      this.searchData.page.currentPage = 1
       this.currentPage = 1
+      console.log(this.currentPage)
+      this.searchData.page.currentPage = 1
       this.getDataList()
     },
     getDataList () {
@@ -152,7 +162,7 @@ export default {
         postData.startSubmitTime = postData.rangeTime[0]
         postData.endSubmitTime = postData.rangeTime[1]
       }
-      MeasureCount.list(postData).then(res => {
+      MeasureSearch.list(postData).then(res => {
         const { code, desc, data } = res.data
         if (code === '0000') {
           // 处理数据
@@ -179,10 +189,11 @@ export default {
     },
     // 编辑
     getDetail (row) {
+      console.log(row)
       this.$router.push({
-        name: 'statistics-measureCount-detail',
+        name: 'statistics-asqCount-detail',
         query: {
-          merId: row,
+          channelCodeMain: row,
           startSubmitTime: this.searchData.startSubmitTime,
           endSubmitTime: this.searchData.endSubmitTime
         }
@@ -197,6 +208,8 @@ export default {
     // 置空搜索
     resetSearch () {
       this.searchData = {
+        serialNumber: '',
+        bzId: '',
         merId: '',
         startSubmitTime: '',
         endSubmitTime: '',
@@ -210,7 +223,7 @@ export default {
     },
     // 分页事件
     handleSizeChange (row) {
-    // 每页显示数改变
+      // 每页显示数改变
       this.searchData.page.pageSize = row
       this.getDataList()
     },
@@ -238,5 +251,18 @@ export default {
 }
 .button-grounp{
   margin: 10px 0 20px 0;
+}
+.countTotal{
+  position: absolute;
+  background-color: #ecf5ff;
+  width: 150px;
+  height: 50px;
+  padding: 0 10px;
+  line-height: 50px;
+  top:14px;
+  right: 18px;
+  text-align: center;
+  border: 1px solid #d9ecff;
+  color: #409eff;
 }
 </style>
