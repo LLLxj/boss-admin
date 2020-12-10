@@ -30,12 +30,12 @@ module.exports = {
     open: true,
     hotOnly: true,
     proxy: {
-      '/apiPro': {
+      '/boss/apiPro': {
         target: process.env.VUE_APP_HOST,
         ws: true,
         changOrigin: true,
         pathRewrite: {
-          '^/apiPro': ''
+          '^/boss/apiPro': ''
         }
       }
     }

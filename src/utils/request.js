@@ -4,9 +4,10 @@ import { Message } from 'element-ui'
 import { getToken, removeToken } from '@/utils/auth'
 // import Vue from 'vue'
 import router from '@/router'
+console.log(process.env)
 // 创建axios实例
 const service = axios.create({
-  baseURL: process.env.BASE_API, // api的base_url
+  baseURL: process.env.BASE_URL + '/boss', // api的base_url
   timeout: 15000 // 请求超时时间
 })
 
@@ -21,9 +22,7 @@ service.interceptors.request.use(config => {
   Promise.reject(error)
 })
 
-service.adornUrl = (actionName) => {
-  console.log(1111)
-  console.log(actionName)
+service.adornUrl = actionName => {
   // 非生产环境 && 开启代理, 接口前缀统一使用[/proxyApi/]前缀做代理拦截!
   return process.env.VUE_APP_HOST + actionName
 }
