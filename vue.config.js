@@ -24,7 +24,7 @@ function resolve (dir) {
 }
 console.log(process.env.VUE_APP_HOST)
 module.exports = {
-  publicPath: '/',
+  publicPath: './',
   productionSourceMap: !isProduction,
   devServer: {
     open: true,
