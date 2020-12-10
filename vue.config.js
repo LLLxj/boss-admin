@@ -64,6 +64,8 @@ module.exports = {
       })
       .end()
     config.resolve.alias.set('@', resolve('src'))
+    config.plugins.delete('preload')
+    config.plugins.delete('prefetch')
   },
   configureWebpack: config => {
     config.output.chunkFilename = 'js/[name].[' + Version + '].js' // 这种方式适合设备缓存不严重的
