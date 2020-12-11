@@ -2,7 +2,7 @@
   <div class="app-container">
     <el-form :inline="true" :model="searchData" @keyup.enter.native="getDataList()">
       <el-form-item label="物流状态">
-        <el-select v-model="searchData.status" clearable @change="changeStatus" placeholder="请选择">
+        <el-select v-model="searchData.status" clearable placeholder="请选择">
           <el-option v-for="item in statusList" :key="item.value" :label="item.label" :value="item.value">
           </el-option>
         </el-select>
@@ -131,7 +131,7 @@ export default {
     resetSearch () {
       this.searchData = {
         status: '',
-        phone: null,
+        phoneNo: null,
         page: {
           currentPage: 1,
           pageSize: 10

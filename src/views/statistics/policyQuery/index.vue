@@ -4,7 +4,7 @@
       <el-col :span="24">
         <el-form :model="searchData" :inline="true" ref="searchData" label-width="80px">
           <el-form-item label="保单号:">
-            <el-input v-model="searchData.insuranceNo"></el-input>
+            <el-input v-model="searchData.insuranceNo" clearable></el-input>
           </el-form-item>
           <el-form-item>
             <el-button :disabled="searchData.insuranceNo === ''" v-permission="['pf:insurance/detail']" type="primary" @click="getDataList()">查询</el-button>
@@ -13,7 +13,8 @@
       </el-col>
     </el-row>
     <el-row :gutter="24">
-      <div v-if="dataForm.insuranceNo">
+      <div style="padding: 0 30px" v-if="dataForm === null">暂无数据</div>
+      <div v-if="dataForm && dataForm.insuranceNo !== ''">
         <el-form :model="dataForm" :inline="true" ref="dataForm" label-width="150px">
           <el-col :span="8">
             <el-form-item label="保单号:">
