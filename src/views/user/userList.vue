@@ -187,7 +187,7 @@ export default {
         })
       }).catch(err => {
         console.log(err)
-        mythis.$message.error(err)
+        // mythis.$message.error(err)
       })
     },
     disableHandle (id) { // 禁用
@@ -217,7 +217,7 @@ export default {
         })
       }).catch(err => {
         console.log(err)
-        mythis.$message.error(err)
+        // mythis.$message.error(err)
       })
     },
     resetPas (id) {

@@ -4,7 +4,6 @@ import { Message } from 'element-ui'
 import { getToken, removeToken } from '@/utils/auth'
 // import Vue from 'vue'
 import router from '@/router'
-console.log(process.env)
 // 创建axios实例
 const service = axios.create({
   baseURL: process.env.BASE_URL + '/boss', // api的base_url
