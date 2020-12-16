@@ -14,8 +14,8 @@ export default [
     },
     children: [
       ...businessManageList,
-      ...diseaseRiskCount,
-      ...serviceSet
+      ...serviceSet,
+      ...diseaseRiskCount
     ]
   }
 ]

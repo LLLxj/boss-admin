@@ -1,6 +1,6 @@
 <template>
   <div class="app-container">
-     <el-tabs v-model="activeName" @tab-click="handleTabClick">
+    <el-tabs v-model="activeName" @tab-click="handleTabClick">
       <el-tab-pane v-for="item in orderStatusFormat" :key="item.value" :name="item.label" :label="item.label" />
     </el-tabs>
     <el-form :inline="true" :model="searchData" @keyup.enter.native="getDataList()">

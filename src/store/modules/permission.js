@@ -66,7 +66,6 @@ const permission = {
         // accessedRouters.forEach(item => {
         //   console.log(item.meta.title)
         // })
-        // console.log(accessedRouters)
         commit('SET_ROUTERS', accessedRouters)
         commit('SET_ROLES', perms)
         resolve()
