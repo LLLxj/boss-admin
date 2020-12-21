@@ -9,12 +9,12 @@
           <el-form-item prop="pwd">
             <el-input v-model="ruleForm.pwd" type="password" placeholder="请输入密码" @keyup.enter.native="handleLogin()"></el-input>
           </el-form-item>
-          <!-- <el-form-item prop="captcha" v-if="isVerification">
+          <el-form-item prop="captcha" v-if="isVerification">
             <div class="verification clear">
-              <el-input type="text" placeholder="请输入验证码" v-model="captcha" @keyup.enter.native="onSubmit('ruleForm')"></el-input>
-              <img v-bind:src="img" alt="" @click="authCaptcha">
+              <el-input type="text" placeholder="请输入验证码" v-model="ruleForm.captcha" @keyup.enter.native="onSubmit('ruleForm')"></el-input>
+              <img class="img-src" :src="img" alt="" @click="authCaptcha">
             </div>
-          </el-form-item> -->
+          </el-form-item>
           <el-form-item>
             <el-button class="login_but" @click="handleLogin()">立即登录</el-button>
           </el-form-item>
@@ -53,6 +53,7 @@ export default {
         captcha: '',
         captchaToken: ''
       },
+      img: '',
       isVerification: false,
       rules: {
         account: [
@@ -66,6 +67,9 @@ export default {
       pwdType: 'password'
     }
   },
+  created () {
+    this.authCaptcha()
+  },
   methods: {
     showPwd () {
       if (this.pwdType === 'password') {
@@ -73,6 +77,20 @@ export default {
       } else {
         this.pwdType = 'password'
       }
+    },
+    authCaptcha () {
+      System.captcha().then(res => {
+        const { code, data, desc } = res.data
+        if (code === '0000') {
+          this.isVerification = true
+          this.img = 'data:image/png;base64,' + data.img
+          this.ruleForm.captchaToken = data.captchaToken
+        } else if (code === '1051') { // 不需要验证码
+          this.isVerification = false
+        } else {
+          this.$mesasge.error(desc)
+        }
+      })
     },
     handleLogin () {
       this.$refs.ruleForm.validate(valid => {
@@ -130,7 +148,7 @@ $light_gray:#eee;
     margin: 0 auto;
     width: 500px;
     .login_bj {
-      width: 400px;
+      width: 500px;
       background-color: #fff;
       padding: 50px;
       position: absolute;
@@ -150,12 +168,13 @@ $light_gray:#eee;
       }
     }
     .verification{
+      display: flex;
       font-size: 14px;
-      margin-top: 20px;
+      // margin-top: 20px;
       img{
         width: 120px;
-        float:right;
         height: 46px;
+        margin-top: 20px;
         cursor: pointer;
       }
     }

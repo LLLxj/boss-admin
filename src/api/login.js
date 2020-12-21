@@ -20,6 +20,13 @@ class System {
     })
   }
 
+  static captcha () {
+    return request({
+      url: `${baseUrl}/auth/captcha`,
+      method: 'post'
+    })
+  }
+
   static logout () {
     return request({
       url: `${baseUrl}/auth/logout`,
