@@ -257,10 +257,6 @@ export default {
         this.currentPage = row
       })
       this.getDataList()
-    },
-    // 分页end
-    dateFormatter (row, column, cellValue) {
-      // return dateSubstring(cellValue)
     }
   }
 }

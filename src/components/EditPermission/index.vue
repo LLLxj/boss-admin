@@ -13,11 +13,21 @@
           :check-on-click-node="true"
           :check-strictly="true"
           :default-checked-keys="checkKeys"
-          @node-click="nodeClick"
           :expand-on-click-node="false"
+          @node-click="nodeClick"
           @check="handleCheckChange"
         >
         </el-tree>
+        <!-- <el-tree
+          :props="props"
+          :data="permissionList"
+          :default-expand-all="false"
+          :default-checked-keys="checkKeys"
+          show-checkbox
+          node-key="id"
+          ref="tree2"
+        >
+        </el-tree> -->
       </el-form-item>
     </el-form>
     <div slot="footer" class="dialog-footer">

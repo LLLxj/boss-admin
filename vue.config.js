@@ -1,4 +1,4 @@
-const isProduction = process.env.NODE_ENV === 'production'
+const isProduction = process.env.NODE_ENV === 'prod'
 const proCDN = {
   css: [
     'https://cdn.bootcss.com/element-ui/2.13.0/theme-chalk/index.css'

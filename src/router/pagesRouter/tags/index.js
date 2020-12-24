@@ -14,10 +14,10 @@ export default [
       icon: 'table'
     },
     children: [
-      ...dataQuery,
-      ...projectManagement,
       ...tagging,
-      ...tagManagement
+      ...tagManagement,
+      ...projectManagement,
+      ...dataQuery
     ]
   }
 ]

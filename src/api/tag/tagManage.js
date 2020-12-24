@@ -2,37 +2,45 @@ import request from '@/utils/request'
 
 const baseUrl = '/apiPro'
 
-class Tagging {
+class TagManage {
   static list (data) {
     return request({
-      url: `${baseUrl}/prodata/selectprodatarelpage`,
+      url: `${baseUrl}/label/selectlabellist`,
       method: 'post',
       data
     })
   }
 
-  static selectproList () { // 标签管理
+  static labelList () {
     return request({
       url: `${baseUrl}/label/selectprolist`,
       method: 'post'
     })
   }
 
-  static dataCountList (data) { // 批次查询
+  static getFeature (data) {
     return request({
-      url: `${baseUrl}/prodata/selectbatchbyproid`,
+      url: `${baseUrl}/label/selectfeaturelist`,
       method: 'post',
       data
     })
   }
 
-  static receive (data) { // 领取
+  static save (data) {
     return request({
-      url: `${baseUrl}/prodata/batchreceive`,
+      url: `${baseUrl}/label/add`,
+      method: 'post',
+      data
+    })
+  }
+
+  static delete (data) {
+    return request({
+      url: `${baseUrl}/label/delete`,
       method: 'post',
       data
     })
   }
 }
 
-export default Tagging
+export default TagManage

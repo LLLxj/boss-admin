@@ -210,14 +210,11 @@ export default {
       }
       this.getDataList()
     },
-    // 分页事件
-    handleSizeChange (row) {
-    // 每页显示数改变
+    handleSizeChange (row) { // 分页事件
       this.searchData.page.pageSize = row
       this.getDataList()
     },
     handleCurrentChange (row) {
-    // 当前页改变
       this.searchData.page.currentPage = row
       this.$nextTick(function () {
         this.currentPage = row

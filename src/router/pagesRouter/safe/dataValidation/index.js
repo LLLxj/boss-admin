@@ -1,7 +1,7 @@
 export default [
   {
     path: 'dataValidation',
-    name: 'safe-dataValidation',
+    name: 'safe-data-validation',
     component (resolve) {
       require(['@/views/safe/dataValidation'], resolve)
     },
@@ -11,6 +11,17 @@ export default [
       roles: [
         'dataValidation'
       ]
+    }
+  },
+  {
+    path: 'dataScore',
+    name: 'safe-data-score',
+    component (resolve) {
+      require(['@/views/safe/dataScore'], resolve)
+    },
+    meta: {
+      title: '数据打分',
+      icon: 'table'
     }
   }
 ]
