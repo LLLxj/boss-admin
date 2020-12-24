@@ -2,9 +2,7 @@ export default [
   {
     path: 'ocrConfirm',
     name: 'bussiness-ocrConfirm',
-    component (resolve) {
-      require(['@/views/bussiness/ocrConfirm'], resolve)
-    },
+    component: () => import('@/views/bussiness/ocrConfirm'),
     meta: {
       title: 'OCR确认',
       icon: 'table',

@@ -2,9 +2,7 @@ export default [
   {
     path: 'premiumCount',
     name: 'statistics-premiumCount',
-    component (resolve) {
-      require(['@/views/statistics/premiumCount/index'], resolve)
-    },
+    component: () => import('@/views/statistics/premiumCount/index'),
     meta: {
       title: '保费统计',
       icon: 'table',
@@ -16,9 +14,7 @@ export default [
   {
     path: 'premiumCountDetail',
     name: 'statistics-premiumCount-detail',
-    component (resolve) {
-      require(['@/views/statistics/premiumCount/detail'], resolve)
-    },
+    component: () => import('@/views/statistics/premiumCount/detail'),
     hidden: true,
     meta: {
       title: '保费统计详情',
@@ -30,9 +26,7 @@ export default [
   {
     path: 'premiumList',
     name: 'statistics-premiumList-list',
-    component (resolve) {
-      require(['@/views/statistics/premiumCount/premiumList'], resolve)
-    },
+    component: () => import('@/views/statistics/premiumCount/premiumList'),
     hidden: true,
     meta: {
       title: '清单详情',

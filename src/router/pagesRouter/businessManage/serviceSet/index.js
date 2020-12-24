@@ -2,9 +2,7 @@ export default [
   {
     path: 'serviceSet',
     name: 'businessManage-serviceSet',
-    component (resolve) {
-      require(['@/views/businessManage/serviceSet/index'], resolve)
-    },
+    component: () => import('@/views/businessManage/serviceSet/index'),
     meta: {
       title: '服务配置',
       icon: 'table',

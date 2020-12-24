@@ -2,9 +2,7 @@ export default [
   {
     path: 'checkProject',
     name: 'bodyCheck-checkProject',
-    component (resolve) {
-      require(['@/views/bodyCheck/checkProject'], resolve)
-    },
+    component: () => import('@/views/bodyCheck/checkProject'),
     meta: {
       title: '检查项目',
       icon: 'table'

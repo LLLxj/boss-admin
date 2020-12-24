@@ -2,9 +2,7 @@ export default [
   {
     path: 'asqCount',
     name: 'statistics-asqCount',
-    component (resolve) {
-      require(['@/views/statistics/asqCount/index'], resolve)
-    },
+    component: () => import('@/views/statistics/asqCount/index'),
     meta: {
       title: '问卷统计',
       icon: 'table',
@@ -16,9 +14,7 @@ export default [
   {
     path: 'asqCountDetail',
     name: 'statistics-asqCount-detail',
-    component (resolve) {
-      require(['@/views/statistics/asqCount/detail'], resolve)
-    },
+    component: () => import('@/views/statistics/asqCount/detail'),
     hidden: true,
     meta: {
       title: '问卷统计详情',

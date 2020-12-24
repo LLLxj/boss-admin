@@ -2,9 +2,7 @@ export default [
   {
     path: 'tagging',
     name: 'tags-tagging',
-    component (resolve) {
-      require(['@/views/tags/tagging/index'], resolve)
-    },
+    component: () => import('@/views/tags/tagging/index'),
     meta: {
       title: '打标签',
       icon: 'table',
@@ -16,9 +14,7 @@ export default [
   {
     path: 'receiveList',
     name: 'tags-receive-list',
-    component (resolve) {
-      require(['@/views/tags/tagging/receiveList'], resolve)
-    },
+    component: () => import('@/views/tags/tagging/receiveList'),
     meta: {
       title: '领取列表',
       icon: 'table'
@@ -27,9 +23,7 @@ export default [
   {
     path: 'takeTag',
     name: 'tag-take-tag',
-    component (resolve) {
-      require(['@/views/tags/tagging/takeTag'], resolve)
-    },
+    component: () => import('@/views/tags/tagging/takeTag'),
     meta: {
       title: '打标签',
       icon: 'table'

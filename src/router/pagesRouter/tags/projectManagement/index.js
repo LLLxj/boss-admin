@@ -2,9 +2,7 @@ export default [
   {
     path: 'projectManagement',
     name: 'tags-projectManagement',
-    component (resolve) {
-      require(['@/views/tags/projectManagement'], resolve)
-    },
+    component: () => import('@/views/tags/projectManagement'),
     meta: {
       title: '项目管理',
       icon: 'table'

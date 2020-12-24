@@ -2,9 +2,7 @@ export default [
   {
     path: 'role',
     name: 'user-role',
-    component (resolve) {
-      require(['@/views/user/roleList'], resolve)
-    },
+    component: () => import('@/views/user/roleList'),
     meta: {
       title: '角色管理',
       icon: 'table',

@@ -2,9 +2,7 @@ export default [
   {
     path: 'policyQuery',
     name: 'statistics-policyQuery',
-    component (resolve) {
-      require(['@/views/statistics/policyQuery/index'], resolve)
-    },
+    component: () => import('@/views/statistics/policyQuery/index'),
     meta: {
       title: '保单查询',
       icon: 'table',

@@ -2,9 +2,7 @@ export default [
   {
     path: 'channelService',
     name: 'memberManage-channelService',
-    component (resolve) {
-      require(['@/views/memberManage/channelService'], resolve)
-    },
+    component: () => import('@/views/memberManage/channelService'),
     meta: {
       title: '渠道服务管理',
       icon: 'table'

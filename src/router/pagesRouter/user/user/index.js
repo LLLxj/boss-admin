@@ -2,9 +2,7 @@ export default [
   {
     path: 'userList',
     name: 'user-list',
-    component (resolve) {
-      require(['@/views/user/userList'], resolve)
-    },
+    component: () => import('@/views/user/userList'),
     meta: {
       title: '用户管理',
       icon: 'table',

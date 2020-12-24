@@ -2,9 +2,7 @@ export default [
   {
     path: 'measureCount',
     name: 'statistics-measureCount',
-    component (resolve) {
-      require(['@/views/statistics/measureCount/index'], resolve)
-    },
+    component: () => import('@/views/statistics/measureCount/index'),
     meta: {
       title: '测评统计',
       icon: 'table',
@@ -16,9 +14,7 @@ export default [
   {
     path: 'measureCountDetail',
     name: 'statistics-measureCount-detail',
-    component (resolve) {
-      require(['@/views/statistics/measureCount/detail'], resolve)
-    },
+    component: () => import('@/views/statistics/measureCount/detail'),
     hidden: true,
     meta: {
       title: '测评统计详情'

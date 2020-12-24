@@ -2,9 +2,7 @@ export default [
   {
     path: 'audioList',
     name: 'memberManage-audioList',
-    component (resolve) {
-      require(['@/views/memberManage/audioList'], resolve)
-    },
+    component: () => import('@/views/memberManage/audioList'),
     meta: {
       title: '音频列表',
       icon: 'table'

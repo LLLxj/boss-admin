@@ -2,9 +2,7 @@ export default [
   {
     path: 'insuranceDemand',
     name: 'pinecone-insuranceDemand',
-    component (resolve) {
-      require(['@/views/pinecone/insuranceDemand'], resolve)
-    },
+    component: () => import('@/views/pinecone/insuranceDemand'),
     meta: {
       title: '保险需求',
       icon: 'table'

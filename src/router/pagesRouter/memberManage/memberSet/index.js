@@ -2,9 +2,7 @@ export default [
   {
     path: '/memberManage/memberSet',
     name: 'memberManage-memberSet',
-    component (resolve) {
-      require(['@/views/memberManage/memberSet'], resolve)
-    },
+    component: () => import('@/views/memberManage/memberSet'),
     meta: {
       title: '会员设置',
       icon: 'table'

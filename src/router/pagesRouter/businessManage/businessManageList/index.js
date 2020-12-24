@@ -2,9 +2,7 @@ export default [
   {
     path: 'businessManagement',
     name: 'businessManage-businessManagement',
-    component (resolve) {
-      require(['@/views/businessManage/businessManage/index'], resolve)
-    },
+    component: () => import('@/views/businessManage/businessManage/index'),
     meta: {
       title: '商户管理',
       icon: 'table',
@@ -16,9 +14,7 @@ export default [
   {
     path: 'businessManagementDetail',
     name: 'businessManage-businessManagement-detail',
-    component (resolve) {
-      require(['@/views/businessManage/businessManage/detail'], resolve)
-    },
+    component: () => import('@/views/businessManage/businessManage/detail'),
     hidden: true,
     meta: {
       title: '商户管理详情',

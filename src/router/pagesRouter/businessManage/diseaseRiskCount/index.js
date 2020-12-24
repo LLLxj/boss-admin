@@ -2,9 +2,7 @@ export default [
   {
     path: 'diseaseRiskCount',
     name: 'businessManage-diseaseRiskCount',
-    component (resolve) {
-      require(['@/views/businessManage/diseaseRiskCount/index'], resolve)
-    },
+    component: () => import('@/views/businessManage/diseaseRiskCount/index'),
     meta: {
       title: '疾病风险测评统计',
       icon: 'table',

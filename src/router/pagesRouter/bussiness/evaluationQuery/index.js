@@ -2,9 +2,7 @@ export default [
   {
     path: 'evaluationQuery',
     name: 'bussiness-evaluationQuery',
-    component (resolve) {
-      require(['@/views/bussiness/evaluationQuery'], resolve)
-    },
+    component: () => import('@/views/bussiness/evaluationQuery'),
     meta: {
       title: '测评管理',
       icon: 'table',

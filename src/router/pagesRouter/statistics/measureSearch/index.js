@@ -2,9 +2,7 @@ export default [
   {
     path: 'measureSearch',
     name: 'statistics-measureSearch',
-    component (resolve) {
-      require(['@/views/statistics/measureSearch/index'], resolve)
-    },
+    component: () => import('@/views/statistics/measureSearch/index'),
     meta: {
       title: '测评查询',
       icon: 'table',
@@ -16,9 +14,7 @@ export default [
   {
     path: 'measureSearchDetail',
     name: 'statistics-measureSearch-detail',
-    component (resolve) {
-      require(['@/views/statistics/measureSearch/detail'], resolve)
-    },
+    component: () => import('@/views/statistics/measureSearch/detail'),
     hidden: true,
     meta: {
       title: '测评查询详情',
