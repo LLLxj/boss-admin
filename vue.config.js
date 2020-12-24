@@ -25,8 +25,7 @@ function resolve (dir) {
 console.log(process.env.VUE_APP_HOST)
 module.exports = {
   publicPath: './',
-  // productionSourceMap: !isProduction,
-  productionSourceMap: false,
+  productionSourceMap: !isProduction,
   devServer: {
     open: true,
     hotOnly: true,
@@ -65,21 +64,21 @@ module.exports = {
       })
       .end()
     config.resolve.alias.set('@', resolve('src'))
-    config.plugins.delete('preload')
-    config.plugins.delete('prefetch')
+    // config.plugins.delete('preload')
+    // config.plugins.delete('prefetch')
   },
   configureWebpack: config => {
     config.output.chunkFilename = 'js/[name].[' + Version + '].js' // 这种方式适合设备缓存不严重的
     // config.output.chunkFilename = 'js/[name].js?v=' + Version // 这种是给打包后的chunk文件加版本号。
-    // if (isProduction) {
-    // 用cdn方式引入
-    config.externals = {
-      vue: 'Vue',
-      vuex: 'Vuex',
-      'element-ui': 'ELEMENT',
-      'vue-router': 'VueRouter'
+    if (isProduction) {
+      // 用cdn方式引入
+      config.externals = {
+        vue: 'Vue',
+        vuex: 'Vuex',
+        'element-ui': 'ELEMENT',
+        'vue-router': 'VueRouter'
+      }
     }
-    // }
   },
   css: {
     // 向预处理器 Loader 传递选项
