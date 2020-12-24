@@ -66,20 +66,20 @@ module.exports = {
       })
       .end()
     config.resolve.alias.set('@', resolve('src'))
-    // config.plugins.delete('preload')
-    // config.plugins.delete('prefetch')
+    config.plugins.delete('preload')
+    config.plugins.delete('prefetch')
   },
   configureWebpack: config => {
     config.output.chunkFilename = `js/chunk-[contenthash:8].js` // 这种方式适合设备缓存不严重的
     // config.output.chunkFilename = 'js/[name].js?v=' + Version // 这种是给打包后的chunk文件加版本号。
     // if (isProduction) {
     // 用cdn方式引入
-    config.externals = {
-      vue: 'Vue',
-      vuex: 'Vuex',
-      'element-ui': 'ELEMENT',
-      'vue-router': 'VueRouter'
-    }
+    // config.externals = {
+    //   vue: 'Vue',
+    //   vuex: 'Vuex',
+    //   'element-ui': 'ELEMENT',
+    //   'vue-router': 'VueRouter'
+    // }
     // }
   },
   css: {
