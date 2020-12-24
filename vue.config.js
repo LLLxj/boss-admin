@@ -1,4 +1,5 @@
 const isProduction = process.env.NODE_ENV === 'prod'
+console.log(process.env.NODE_ENV)
 const proCDN = {
   css: [
     'https://cdn.bootcss.com/element-ui/2.13.0/theme-chalk/index.css'
@@ -17,7 +18,6 @@ const devCDN = {
     'https://cdn.bootcss.com/babel-polyfill/6.23.0/polyfill.min.js'
   ]
 }
-const Version = new Date().getTime()
 const path = require('path')
 function resolve (dir) {
   return path.join(__dirname, dir)
@@ -25,7 +25,8 @@ function resolve (dir) {
 console.log(process.env.VUE_APP_HOST)
 module.exports = {
   publicPath: './',
-  productionSourceMap: !isProduction,
+  // productionSourceMap: !isProduction,
+  productionSourceMap: false,
   devServer: {
     open: true,
     hotOnly: true,
@@ -41,10 +42,11 @@ module.exports = {
     }
   },
   chainWebpack: config => {
-    config.resolve.symlinks(true) // 修复热更新失效
+    // config.resolve.symlinks(true) // 修复热更新失效
     config.plugin('html')
       .tap(args => {
-        args[0].cdn = isProduction ? proCDN : devCDN
+        // args[0].cdn = isProduction ? proCDN : devCDN
+        args[0].cdn = proCDN
         return args
       })
     // set svg-sprite-loader
@@ -68,17 +70,17 @@ module.exports = {
     // config.plugins.delete('prefetch')
   },
   configureWebpack: config => {
-    config.output.chunkFilename = 'js/[name].[' + Version + '].js' // 这种方式适合设备缓存不严重的
+    config.output.chunkFilename = `js/chunk-[contenthash:8].js` // 这种方式适合设备缓存不严重的
     // config.output.chunkFilename = 'js/[name].js?v=' + Version // 这种是给打包后的chunk文件加版本号。
-    if (isProduction) {
-      // 用cdn方式引入
-      config.externals = {
-        vue: 'Vue',
-        vuex: 'Vuex',
-        'element-ui': 'ELEMENT',
-        'vue-router': 'VueRouter'
-      }
+    // if (isProduction) {
+    // 用cdn方式引入
+    config.externals = {
+      vue: 'Vue',
+      vuex: 'Vuex',
+      'element-ui': 'ELEMENT',
+      'vue-router': 'VueRouter'
     }
+    // }
   },
   css: {
     // 向预处理器 Loader 传递选项
@@ -100,15 +102,15 @@ module.exports = {
           })
         ]
       }
-    }
+    },
     // css 生成名称默认配置
-    /* extract: {
-      filename: `css/[name].[contenthash:8].css`,
-      chunkFilename: `css/[name].[contenthash:8].css`
-    } */
+    extract: {
+      filename: `css/chunk-[contenthash:8].css`,
+      chunkFilename: `css/chunk-[contenthash:8].css`
+    }
   },
   // 文件名称不需要hash
-  // filenameHashing: false,
+  filenameHashing: false,
   transpileDependencies: [
     'element-ui',
     'vuetify'

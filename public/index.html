@@ -9,12 +9,9 @@
     <% for (var i in
     htmlWebpackPlugin.options.cdn&&htmlWebpackPlugin.options.cdn.css) { %>
     <link href="<%= htmlWebpackPlugin.options.cdn.css[i] %>" rel="preload" as="style" />
-    <link href="<%= htmlWebpackPlugin.options.cdn.css[i] %>" rel="stylesheet" />
+    <!-- <link href="<%= htmlWebpackPlugin.options.cdn.css[i] %>" rel="stylesheet" /> -->
     <% } %>
-    <!-- 使用CDN的JS文件 -->
-    <% for (var i in htmlWebpackPlugin.options.cdn && htmlWebpackPlugin.options.cdn.js) { %>
-      <link href="<%= htmlWebpackPlugin.options.cdn.js[i] %>" rel="preload" as="script">
-    <% } %>
+    
   </head>
   <body>
     <noscript>
@@ -23,9 +20,13 @@
     <div id="app"></div>
     <!-- built files will be auto injected -->
     <!-- 使用CDN加速的JS文件，配置在vue.config.js下 -->
-    <% for (var i in
+    <!-- <% for (var i in
     htmlWebpackPlugin.options.cdn&&htmlWebpackPlugin.options.cdn.js) { %>
     <script src="<%= htmlWebpackPlugin.options.cdn.js[i] %>"></script>
+    <% } %> -->
+    <!-- 使用CDN的JS文件 -->
+    <% for (var i in htmlWebpackPlugin.options.cdn && htmlWebpackPlugin.options.cdn.js) { %>
+      <link href="<%= htmlWebpackPlugin.options.cdn.js[i] %>" rel="preload" as="script">
     <% } %>
     <!-- built files will be auto injected -->
   </body>

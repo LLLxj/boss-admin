@@ -140,7 +140,7 @@ $light_gray:#eee;
 
 /* reset element-ui css */
 .login-container {
-  background: url('../../assets/images/timg.png') no-repeat;
+  background: url('https://miniprogram.flins.com.cn/timg.png') no-repeat;
   background-size: 100%;
   width: 100%;
   height: 100vh;
