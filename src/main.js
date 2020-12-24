@@ -5,7 +5,7 @@ import { Integrations } from '@sentry/tracing'
 import router from './router'
 import store from './store'
 import '@/plugins/element.js'
-// import ElementUI from 'element-ui'
+import ElementUI from 'element-ui'
 // import 'element-ui/lib/theme-chalk/index.css'
 import './assets/css/index.scss'
 import '@/styles/index.scss' // global css
@@ -25,7 +25,7 @@ Viewer.setDefaults({
   Options: { inline: true, button: true, navbar: true, title: true, toolbar: true, tooltip: true, movable: true, zoomable: true, rotatable: true, scalable: true, transition: true, fullscreen: true, keyboard: true, url: 'data-source' }
 })
 
-// Vue.use(ElementUI, { size: 'medium' })
+Vue.use(ElementUI, { size: 'medium' })
 if (process.env.NODE_ENV) {
   //  可设置用户信息用于定位筛选
   Sentry.setUser({

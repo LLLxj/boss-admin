@@ -27,8 +27,6 @@
     "nprogress": "^0.2.0",
     "sass-loader": "^7.1.0",
     "screenfull": "^5.0.2",
-    "babel-plugin-component": "^1.1.1",
-    "babel-plugin-transform-remove-console": "^6.9.4",
     "svg-sprite-loader": "^5.0.0",
     "vue": "^2.6.11",
     "vue-count-to": "^1.0.13",
