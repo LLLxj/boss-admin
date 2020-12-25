@@ -33,8 +33,8 @@
       </el-table-column>
       <el-table-column label="操作" width="150" align="center" header-align="center">
         <template slot-scope="scope">
-          <el-button v-permission="['prodata:update']" v-if="scope.row.status === 1" type="text" @click="receiveHandle(scope.row.id)">处理</el-button>
-          <el-button v-permission="['prodata:submit']" v-if="scope.row.status === 2" type="text" @click="receiveHandle(scope.row.id)">修改</el-button>
+          <el-button v-permission="['prodata:update']" v-if="scope.row.status === 1" type="text" @click="toTakeTag(1, scope.row.id)">处理</el-button>
+          <el-button v-permission="['prodata:submit']" v-if="scope.row.status === 2" type="text" @click="toTakeTag(2, scope.row.id)">修改</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -183,12 +183,8 @@ export default {
         console.log(err)
       })
     },
-    receiveHandle (item) { // 领取操作
-      console.log(item)
-      this.receiveVisible = true
-      this.$nextTick(() => {
-        this.$refs.ReceiveComponent.init(item)
-      })
+    toTakeTag (type, id) { // 修改、处理操作
+      this.$router.push({ path: 'takeTag', query: { type: type, id: id, batch: this.searchData.batch, proId: this.searchData.proId } })
     },
     handleTabClick (tab) {
       console.log(tab)

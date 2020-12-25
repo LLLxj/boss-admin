@@ -33,6 +33,22 @@ class Tagging {
       data
     })
   }
+
+  static info (data) {
+    return request({
+      url: `${baseUrl}/prodata/detail`,
+      method: 'post',
+      data
+    })
+  }
+
+  static labelList (data) {
+    return request({
+      url: `${baseUrl}/prodata/featurelabellist`,
+      method: 'post',
+      data
+    })
+  }
 }
 
 export default Tagging
