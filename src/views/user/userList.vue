@@ -94,7 +94,6 @@ export default {
         { label: '正常', value: 1 },
         { label: '全部', value: '' }
       ],
-      //  分页参数
       pageSizes: [10, 20, 30, 40],
       pageSize: 10,
       currentPage: 1,
@@ -244,14 +243,11 @@ export default {
       }
       this.getDataList()
     },
-    // 分页事件
     handleSizeChange (row) {
-    // 每页显示数改变
       this.searchData.page.pageSize = row
       this.getDataList()
     },
     handleCurrentChange (row) {
-    // 当前页改变
       this.searchData.page.currentPage = row
       this.$nextTick(function () {
         this.currentPage = row

@@ -11,8 +11,8 @@ export default [
       icon: 'table'
     },
     children: [
-      ...cmsClassify,
-      ...cmsContent
+      ...cmsContent,
+      ...cmsClassify
     ]
   }
 ]
